@@ -1,0 +1,11 @@
+{
+  "name": "guardiankane-ecommerce-demo",
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}
