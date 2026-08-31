@@ -1,0 +1,19 @@
+{
+  "commit_id": "979c882b-2150-43c1-9f6f-5a46223dab7a",
+  "test_id": "d4cec427-de06-46ec-86ba-0c7db5873217",
+  "testcase_id": "01M17QDV464MXNN4JBSY173ZY8",
+  "project_id": "01M0F63YNYNEJSPFD57DFXFTMJ",
+  "folder_id": "01M0F63ZGGDR31K4MPZVY3TP2F",
+  "org_id": "3281823",
+  "session_name": "show-signed-in-identity-after-a-returning-shopper-signs-in",
+  "executions": [
+    {
+      "execution_id": "553fc112-2ade-48de-8226-f40db7232739",
+      "run_kind": "author",
+      "status": "failed",
+      "valid": true,
+      "uploaded": true,
+      "at": "2026-08-30T03:20:37.615Z"
+    }
+  ]
+}

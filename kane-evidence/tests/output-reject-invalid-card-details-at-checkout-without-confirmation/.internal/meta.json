@@ -1,0 +1,19 @@
+{
+  "commit_id": "1be7fed2-aa1f-426e-a285-b9c83463c414",
+  "test_id": "977e7fd7-3fdf-48fe-8159-6c1b234729a9",
+  "testcase_id": "01M18XHFYHZESK4B0PQKPQT4DM",
+  "project_id": "01M18JVVF6P74EKJ5HS52DWWDD",
+  "folder_id": "01M18JVW3T91Y0ZW62FSTCM8V2",
+  "org_id": "3303581",
+  "session_name": "reject-invalid-card-details-at-checkout-without-confirmation",
+  "executions": [
+    {
+      "execution_id": "265bd72e-063f-41fc-9af4-1aeda2cab374",
+      "run_kind": "author",
+      "status": "failed",
+      "valid": true,
+      "uploaded": true,
+      "at": "2026-08-30T08:59:07.346Z"
+    }
+  ]
+}

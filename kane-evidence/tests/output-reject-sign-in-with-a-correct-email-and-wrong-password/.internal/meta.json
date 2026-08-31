@@ -1,0 +1,18 @@
+{
+  "test_id": "fe13b024-75fa-431c-ab03-a76755c1fd55",
+  "project_id": "01M18JVVF6P74EKJ5HS52DWWDD",
+  "folder_id": "01M18JVW3T91Y0ZW62FSTCM8V2",
+  "org_id": "3303581",
+  "session_name": "reject-sign-in-with-a-correct-email-and-wrong-password",
+  "commit_id": "c78394ab-57d9-465b-b2a8-6ec2d0d4b099",
+  "testcase_id": "01M18P1HK6ECN8YQH6XF0NANC8",
+  "executions": [
+    {
+      "execution_id": "b26121a9-eb69-4589-8972-de955b2e1d90",
+      "run_kind": "author",
+      "status": "passed",
+      "valid": true,
+      "at": "2026-08-30T06:37:03.459Z"
+    }
+  ]
+}

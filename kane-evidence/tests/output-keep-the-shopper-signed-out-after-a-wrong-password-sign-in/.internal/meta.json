@@ -1,0 +1,27 @@
+{
+  "commit_id": "57d5d045-d330-4f71-a3e5-fc41225b805a",
+  "test_id": "d8dc1325-8748-47ab-b1a0-14220a2e0dd0",
+  "testcase_id": "01M177WG2N9P6M0YK4ZW70Y5EN",
+  "project_id": "01M0F63YNYNEJSPFD57DFXFTMJ",
+  "folder_id": "01M0F63ZGGDR31K4MPZVY3TP2F",
+  "org_id": "3281823",
+  "session_name": "keep-the-shopper-signed-out-after-a-wrong-password-sign-in",
+  "executions": [
+    {
+      "execution_id": "27bec529-cd6d-4d83-83f0-2b2b6e75d19a",
+      "run_kind": "author",
+      "status": "passed",
+      "valid": true,
+      "uploaded": false,
+      "at": "2026-08-29T21:47:26.850Z"
+    },
+    {
+      "execution_id": "553fc112-2ade-48de-8226-f40db7232739",
+      "run_kind": "replay",
+      "status": "passed",
+      "valid": true,
+      "uploaded": true,
+      "at": "2026-08-30T03:20:37.614Z"
+    }
+  ]
+}

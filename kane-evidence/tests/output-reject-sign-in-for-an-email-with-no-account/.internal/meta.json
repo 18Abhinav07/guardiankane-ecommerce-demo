@@ -1,0 +1,18 @@
+{
+  "test_id": "7520bac5-4c24-4a38-b09c-e7f799072a22",
+  "project_id": "01M18JVVF6P74EKJ5HS52DWWDD",
+  "folder_id": "01M18JVW3T91Y0ZW62FSTCM8V2",
+  "org_id": "3303581",
+  "session_name": "reject-sign-in-for-an-email-with-no-account",
+  "commit_id": "87397985-2eeb-4a90-9ddf-a42adf616f4c",
+  "testcase_id": "01M18P60ZXBZKGP7YPJ14RAPHW",
+  "executions": [
+    {
+      "execution_id": "9ac51e6d-962d-4b2f-a2db-f8a2003a963d",
+      "run_kind": "author",
+      "status": "passed",
+      "valid": true,
+      "at": "2026-08-30T06:39:18.338Z"
+    }
+  ]
+}

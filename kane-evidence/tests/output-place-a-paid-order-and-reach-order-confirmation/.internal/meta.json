@@ -1,0 +1,19 @@
+{
+  "commit_id": "4a2e1e7e-7655-4c6d-8a33-d349394636ff",
+  "test_id": "56343c82-d138-413e-a09a-6221afd90a1d",
+  "testcase_id": "01M18XHFHPAJDG75881JM10KBR",
+  "project_id": "01M18JVVF6P74EKJ5HS52DWWDD",
+  "folder_id": "01M18JVW3T91Y0ZW62FSTCM8V2",
+  "org_id": "3303581",
+  "session_name": "place-a-paid-order-and-reach-order-confirmation",
+  "executions": [
+    {
+      "execution_id": "265bd72e-063f-41fc-9af4-1aeda2cab374",
+      "run_kind": "author",
+      "status": "failed",
+      "valid": true,
+      "uploaded": true,
+      "at": "2026-08-30T08:59:07.343Z"
+    }
+  ]
+}

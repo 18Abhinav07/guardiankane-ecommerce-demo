@@ -1,0 +1,24 @@
+{
+  "test_id": "3bcfaa94-9911-423c-b977-66eb31a3d2ea",
+  "project_id": "01M18JVVF6P74EKJ5HS52DWWDD",
+  "folder_id": "01M18JVW3T91Y0ZW62FSTCM8V2",
+  "org_id": "3303581",
+  "session_name": "reach-checkout-from-signed-in-cart",
+  "commit_id": "95717e0e-eef7-41fd-8208-d0487ebdd493",
+  "testcase_id": "01M18SPPMH68SF8A6G9YN3H4B2",
+  "executions": [
+    {
+      "execution_id": "1cf0bff1-e42a-4ea8-8e9b-a4f0ed9926fa",
+      "run_kind": "author",
+      "status": "passed",
+      "valid": true,
+      "at": "2026-08-30T07:44:08.827Z"
+    },
+    {
+      "execution_id": "5426cb37-79b9-4704-a67e-274b5ed1b828",
+      "run_kind": "author",
+      "status": "passed",
+      "at": "2026-08-30T07:44:22.200Z"
+    }
+  ]
+}

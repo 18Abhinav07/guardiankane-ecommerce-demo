@@ -1,0 +1,48 @@
+{
+  "commit_id": "83d6d755-ccb4-4490-a814-a4b9c42d3c84",
+  "test_id": "618c4824-018b-4ac7-8b6b-85021da2e4ac",
+  "testcase_id": "01M17EFDGEC85PT8750W7YRQ81",
+  "project_id": "01M0F63YNYNEJSPFD57DFXFTMJ",
+  "folder_id": "01M0F63ZGGDR31K4MPZVY3TP2F",
+  "org_id": "3281823",
+  "session_name": "keep-the-shopper-signed-out-after-a-no-account-sign-in",
+  "executions": [
+    {
+      "execution_id": "8785a2e6-8383-4cca-9b29-8b6e109ed38e",
+      "run_kind": "author",
+      "status": "passed",
+      "valid": true,
+      "uploaded": false,
+      "at": "2026-08-29T21:39:47.280Z"
+    },
+    {
+      "execution_id": "a34853f3-8b97-4489-9f04-0a3deff4a1ea",
+      "run_kind": "replay",
+      "status": "passed",
+      "at": "2026-08-29T21:40:58.289Z"
+    },
+    {
+      "execution_id": "2fc012a9-edea-4e8e-81ef-b5439817c980",
+      "run_kind": "replay",
+      "status": "passed",
+      "at": "2026-08-29T21:42:25.774Z",
+      "uploaded": true
+    },
+    {
+      "execution_id": "27bec529-cd6d-4d83-83f0-2b2b6e75d19a",
+      "run_kind": "replay",
+      "status": "passed",
+      "valid": true,
+      "uploaded": false,
+      "at": "2026-08-29T21:47:26.847Z"
+    },
+    {
+      "execution_id": "553fc112-2ade-48de-8226-f40db7232739",
+      "run_kind": "replay",
+      "status": "passed",
+      "valid": true,
+      "uploaded": true,
+      "at": "2026-08-30T03:20:37.610Z"
+    }
+  ]
+}

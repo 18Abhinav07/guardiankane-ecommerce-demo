@@ -1,0 +1,27 @@
+{
+  "commit_id": "d0679180-b2f8-4b60-81bf-dea3c2d23c01",
+  "test_id": "2b28341b-4d80-429b-aa46-a8513fa0259a",
+  "testcase_id": "01M17CVCYFDP970M15SVQSERXQ",
+  "project_id": "01M0F63YNYNEJSPFD57DFXFTMJ",
+  "folder_id": "01M0F63ZGGDR31K4MPZVY3TP2F",
+  "org_id": "3281823",
+  "session_name": "recalculate-the-cart-in-place-after-changing-an-item-s",
+  "executions": [
+    {
+      "execution_id": "21cbd720-19d2-46ff-a607-f4fd207d7514",
+      "run_kind": "author",
+      "status": "passed",
+      "valid": true,
+      "uploaded": false,
+      "at": "2026-08-29T18:56:09.113Z"
+    },
+    {
+      "execution_id": "d788da85-e3e4-4b31-ad7a-96af5893cd90",
+      "run_kind": "replay",
+      "status": "passed",
+      "valid": true,
+      "uploaded": true,
+      "at": "2026-08-29T18:59:46.890Z"
+    }
+  ]
+}

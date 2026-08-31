@@ -1,0 +1,35 @@
+{
+  "commit_id": "1af4ab45-c723-40c9-a510-f3114b55b0c2",
+  "test_id": "e7c4c99f-07c5-4dba-98f0-4e0a93b4a60e",
+  "testcase_id": "01M176SKE559MQFZQ1T2QEPQW5",
+  "project_id": "01M0F63YNYNEJSPFD57DFXFTMJ",
+  "folder_id": "01M0F63ZGGDR31K4MPZVY3TP2F",
+  "org_id": "3281823",
+  "session_name": "add-one-unit-of-a-product-from-the-product-grid",
+  "executions": [
+    {
+      "execution_id": "d2bf2062-9f38-46db-8771-12c97954c83f",
+      "run_kind": "author",
+      "status": "passed",
+      "valid": true,
+      "uploaded": true,
+      "at": "2026-08-29T18:16:17.816Z"
+    },
+    {
+      "execution_id": "29f20a0a-acbd-4310-8ea2-782934694328",
+      "run_kind": "replay",
+      "status": "passed",
+      "valid": true,
+      "uploaded": true,
+      "at": "2026-08-29T18:23:34.157Z"
+    },
+    {
+      "execution_id": "89f924a6-aa01-4fb2-b85c-7779e2155c09",
+      "run_kind": "replay",
+      "status": "passed",
+      "valid": true,
+      "uploaded": true,
+      "at": "2026-08-29T18:31:42.204Z"
+    }
+  ]
+}

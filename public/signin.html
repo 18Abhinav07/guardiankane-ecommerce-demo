@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sign in — Trailhead Goods</title>
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <header>
+    <a class="logo" href="/">Trailhead Goods</a>
+    <nav>
+      <a href="/">Shop</a>
+      <a id="cart-link" href="/cart.html">Cart <span id="cart-count" class="hidden">0</span></a>
+      <a id="account-link" href="/signin.html">Sign in</a>
+    </nav>
+  </header>
+  <main>
+    <div class="auth-panel">
+      <h1>Sign in</h1>
+      <form id="signin-form">
+        <label>Email
+          <input type="email" id="signin-email" required />
+        </label>
+        <label>Password
+          <input type="password" id="signin-password" required />
+        </label>
+        <p id="signin-error" class="form-error hidden"></p>
+        <button class="primary" type="submit">Sign in</button>
+      </form>
+      <p class="auth-switch">New here? <a href="/signup.html">Create an account</a></p>
+    </div>
+  </main>
+  <script src="/signin.js"></script>
+  <script src="/account.js"></script>
+</body>
+</html>

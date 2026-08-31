@@ -1,0 +1,468 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>GuardianKane — Graph</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f3f1ec;
+    --panel: #ffffff;
+    --panel-raised: #faf9f5;
+    --hover: #efece4;
+    --border: #e4e1d6;
+    --border-strong: #d6d2c4;
+    --text: #16150f;
+    --text-dim: #57544a;
+    --text-faint: #8f8b7c;
+    --accent: #ff5a1f;
+    --accent-soft: rgba(255,90,31,0.08);
+    --accent-soft-strong: rgba(255,90,31,0.16);
+    --good: #1e8e5a;
+    --warn: #b4790a;
+    --bad: #d33f3f;
+    --mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    --display: "Manrope", -apple-system, BlinkMacSystemFont, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: var(--bg); color: var(--text); }
+  #app { display: flex; flex-direction: column; height: 100%; }
+
+  /* ---------- top tab strip ---------- */
+  #tabs { display: flex; align-items: stretch; flex-shrink: 0; background: var(--panel); border-bottom: 1px solid var(--border); }
+  .tab-btn { appearance: none; background: none; border: none; border-bottom: 2px solid transparent; color: var(--text-faint); font-family: var(--display); font-weight: 600; font-size: 12.5px; padding: 10px 16px; cursor: pointer; letter-spacing: 0.01em; }
+  .tab-btn:hover { color: var(--text-dim); }
+  .tab-btn.active { color: var(--text); border-bottom-color: var(--accent); }
+
+  /* ---------- side panels (always a faint thin scrollbar, darkens on interaction) ---------- */
+  #main-row { flex: 1; display: flex; min-height: 0; }
+  #panel, #chat-panel {
+    width: 300px; flex-shrink: 0; display: flex; flex-direction: column; background: var(--panel);
+    overflow-y: auto; overflow-x: hidden;
+    scrollbar-width: thin; scrollbar-color: var(--border) transparent;
+    transition: width 200ms ease, border-color 200ms ease;
+  }
+  #panel.collapsed, #chat-panel.collapsed { width: 0; border-color: transparent; }
+  /* A hide-then-reveal scrollbar (fully transparent at rest) has no CSS
+     transition on scrollbar-color, so every appear/disappear is a hard
+     instant snap — any scroll burst shorter than the reveal's grace window
+     reads as flicker no matter which events drive the timer. Keeping the
+     thumb always faintly present (var(--border)) and only darkening it on
+     interaction removes the disappearing state entirely, so there is
+     nothing left to flicker. */
+  #panel:hover, #chat-panel:hover, #panel.scroll-active, #chat-panel.scroll-active { scrollbar-color: var(--border-strong) transparent; }
+  #panel::-webkit-scrollbar, #chat-panel::-webkit-scrollbar { width: 7px; }
+  #panel::-webkit-scrollbar-track, #chat-panel::-webkit-scrollbar-track { background: transparent; }
+  #panel::-webkit-scrollbar-thumb, #chat-panel::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; transition: background-color 150ms ease; }
+  #panel:hover::-webkit-scrollbar-thumb, #chat-panel:hover::-webkit-scrollbar-thumb,
+  #panel.scroll-active::-webkit-scrollbar-thumb, #chat-panel.scroll-active::-webkit-scrollbar-thumb { background: var(--border-strong); }
+  #panel { border-right: 1px solid var(--border); }
+  #chat-panel { border-left: 1px solid var(--border); }
+  #panel-header, #chat-panel-header { display: flex; align-items: center; justify-content: space-between; padding: 13px 10px 13px 16px; flex-shrink: 0; border-bottom: 1px solid var(--border); gap: 8px; }
+  #chat-panel-header .title-group { display: flex; align-items: center; gap: 8px; min-width: 0; }
+  #chat-panel-header h1, #panel-header h1 { font-family: var(--display); font-size: 14px; margin: 0; letter-spacing: 0.01em; font-weight: 700; white-space: nowrap; }
+  #chat-panel-header .live-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--good); flex-shrink: 0; box-shadow: 0 0 0 3px rgba(30,142,90,0.15); }
+  .panel-collapse-btn { appearance: none; background: none; border: 1px solid var(--border); color: var(--text-faint); width: 24px; height: 24px; border-radius: 6px; cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .panel-collapse-btn:hover { color: var(--text); border-color: var(--border-strong); background: var(--hover); }
+  .panel-collapse-btn svg { width: 13px; height: 13px; }
+  #reset-filters { background: none; border: none; color: var(--text-faint); font-size: 10.5px; font-family: var(--mono); cursor: pointer; padding: 2px 0; }
+  #reset-filters:hover { color: var(--accent); }
+  #show-guide { background: none; border: 1px solid var(--border); color: var(--text-faint); font-size: 10.5px; font-family: var(--mono); cursor: pointer; padding: 2px 8px; border-radius: 4px; }
+  #show-guide:hover { color: var(--accent); border-color: var(--accent); }
+  #detail-modal-body .guide-tab { display: flex; gap: 8px; margin: 10px 0; }
+  #detail-modal-body .guide-tab b { flex-shrink: 0; min-width: 90px; }
+  #detail-modal-body .guide-step { margin: 4px 0 4px 16px; }
+  #target-path { padding: 8px 14px; color: var(--text-faint); font-size: 10px; font-family: var(--mono); word-break: break-all; border-bottom: 1px solid var(--border); }
+  #search-wrap { padding: 10px 14px; flex-shrink: 0; }
+  #search { width: 100%; padding: 7px 9px; background: var(--panel-raised); border: 1px solid var(--border); color: var(--text); border-radius: 7px; font-family: var(--mono); font-size: 11.5px; }
+  #search:focus { outline: none; border-color: var(--accent); background: #fff; }
+  #search::placeholder { color: var(--text-faint); }
+
+  /* ---------- reopen tabs (float on the canvas when a side panel is collapsed) ---------- */
+  .reopen-tab { position: absolute; top: 14px; z-index: 5; display: none; align-items: center; gap: 5px; background: var(--panel); border: 1px solid var(--border); color: var(--text-dim); font-family: var(--display); font-weight: 600; font-size: 11px; padding: 7px 10px; border-radius: 8px; cursor: pointer; box-shadow: 0 2px 8px rgba(20,20,15,0.08); }
+  .reopen-tab:hover { color: var(--accent); border-color: var(--accent); }
+  .reopen-tab.visible { display: flex; }
+  #reopen-panel { left: 14px; }
+  #reopen-chat { right: 14px; }
+  .reopen-tab svg { width: 11px; height: 11px; }
+
+  /* ---------- collapsible sections ---------- */
+  /* Sidebar sections are scoped to whichever graph tab is active via
+     data-tabs (space-separated tab names, or "all") — switchTab() toggles
+     this class instead of every render function needing its own
+     tab-awareness. !important because some sections also carry an inline
+     style.display set by render code (e.g. "hide until there's data"). */
+  .tab-hidden { display: none !important; }
+  .section { border-top: 1px solid var(--border); flex-shrink: 0; }
+  .section:first-of-type { border-top: none; }
+  .section-header { display: flex; align-items: center; gap: 6px; padding: 10px 14px; cursor: pointer; user-select: none; }
+  .section-header:hover { background: var(--hover); }
+  .section-header .chevron { width: 10px; height: 10px; flex-shrink: 0; transition: transform 140ms ease; color: var(--text-faint); }
+  .section.collapsed .chevron { transform: rotate(-90deg); }
+  .section-title { font-family: var(--display); font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-faint); font-weight: 700; flex: 1; }
+  .section-title .dim { text-transform: none; letter-spacing: 0; color: var(--text-faint); font-weight: 500; }
+  .section-badge { font-size: 10px; color: var(--text-faint); font-family: var(--mono); }
+  .section-body { padding: 2px 8px 12px; display: flex; flex-direction: column; gap: 1px; }
+  .section.collapsed .section-body { display: none; }
+
+  /* ---------- legend rows (isolate-mode filters) ---------- */
+  .legend-row { display: flex; align-items: center; gap: 9px; padding: 5px 6px; border-radius: 6px; cursor: pointer; user-select: none; opacity: 1; transition: opacity 140ms ease, background 140ms ease; }
+  .legend-row:hover { background: var(--hover); }
+  .legend-row.dimmed { opacity: 0.42; }
+  .legend-row.isolated { background: color-mix(in srgb, var(--cg-color, var(--accent)) 14%, transparent); }
+  .legend-row.isolated:hover { background: color-mix(in srgb, var(--cg-color, var(--accent)) 22%, transparent); }
+  .legend-glyph { width: 10px; height: 10px; flex-shrink: 0; display: inline-block; }
+  .legend-glyph.dot { border-radius: 50%; }
+  .legend-glyph.diamond { transform: rotate(45deg); width: 7px; height: 7px; }
+  .legend-glyph.triangle { width: 0; height: 0; border-left: 5px solid transparent; border-right: 5px solid transparent; border-bottom: 9px solid; background: none !important; }
+  .legend-glyph.square { border-radius: 2px; }
+  .legend-glyph.ring { border-radius: 50%; background: none !important; border: 2px solid; }
+  .legend-glyph.line { width: 16px; height: 0; border-top: 2px solid; align-self: center; }
+  .legend-glyph.line.dashed { border-top-style: dashed; }
+  .legend-label { flex: 1; font-size: 11.5px; color: var(--text); font-family: var(--mono); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .legend-count { font-size: 10px; color: var(--text-faint); font-family: var(--mono); font-variant-numeric: tabular-nums; }
+  .legend-hint { font-size: 10px; color: var(--text-faint); font-style: italic; padding: 4px 6px 2px; }
+
+  /* ---------- overview / quality text blocks ---------- */
+  #counts { font-size: 11.5px; color: var(--text-dim); line-height: 1.65; font-family: var(--mono); padding: 2px 6px 6px; }
+  #counts b { color: var(--text); }
+  #quality-summary { font-size: 11.5px; padding: 2px 6px 8px; font-family: var(--mono); color: var(--text-dim); }
+  .action-btn { display: inline-flex; align-items: center; justify-content: center; gap: 6px; width: 100%; padding: 7px 9px; background: transparent; border: 1px solid var(--border); color: var(--text-dim); border-radius: 7px; cursor: pointer; font-size: 11px; font-family: var(--mono); }
+  .action-btn:hover:not(:disabled) { border-color: var(--accent); color: var(--accent); background: var(--accent-soft); }
+  .action-btn:disabled { opacity: 0.45; cursor: default; }
+  .action-btn.primary { border-color: var(--accent); color: #fff; background: var(--accent); }
+  .action-btn.primary:hover:not(:disabled) { background: #e64f16; color: #fff; }
+  .action-row { display: flex; flex-direction: column; gap: 6px; padding: 0 6px 8px; }
+  #mutation-status { font-size: 10px; color: var(--text-faint); padding: 0 6px 8px; min-height: 13px; }
+  #browser-review-ws { width: 100%; padding: 6px 8px; margin: 0 6px 8px; background: var(--panel-raised); border: 1px solid var(--border); color: var(--text); border-radius: 6px; font-family: var(--mono); font-size: 10.5px; box-sizing: border-box; }
+  #browser-review-status { font-size: 10px; color: var(--text-faint); padding: 0 6px 8px; min-height: 13px; }
+  #browser-review-result { font-size: 11px; padding: 0 6px 8px; white-space: pre-wrap; }
+  #quick-generate-objective { width: 100%; padding: 6px 8px; margin: 0 6px 8px; background: var(--panel-raised); border: 1px solid var(--border); color: var(--text); border-radius: 6px; font-family: var(--mono); font-size: 10.5px; box-sizing: border-box; }
+  #quick-generate-status { font-size: 10px; color: var(--text-faint); padding: 0 6px 8px; min-height: 13px; white-space: pre-wrap; }
+  .gap-row { margin-top: 6px; padding: 6px 8px; border: 1px solid var(--border); border-radius: 7px; font-family: var(--mono); }
+  .gap-fix-btn { display: inline-block; margin-top: 6px; padding: 5px 8px; background: transparent; border: 1px solid var(--border); color: var(--text-dim); border-radius: 6px; cursor: pointer; font-size: 10.5px; font-family: var(--mono); text-align: left; }
+  .gap-fix-btn:hover:not(:disabled) { border-color: var(--accent); color: var(--accent); background: var(--accent-soft); }
+  .gap-fix-btn:disabled { opacity: 0.5; cursor: default; }
+  .review-diff { margin-top: 6px; max-height: 220px; overflow: auto; padding: 8px; background: var(--panel); border: 1px solid var(--border); border-radius: 7px; font-family: var(--mono); font-size: 10.5px; white-space: pre-wrap; }
+  .review-ac-row { margin-top: 6px; padding: 6px 8px; border: 1px solid var(--border); border-radius: 7px; display: flex; align-items: center; justify-content: space-between; gap: 8px; font-family: var(--mono); }
+  .review-ac-row.verified { border-color: var(--accent-soft-strong); }
+  .review-ack-btn { padding: 4px 8px; background: transparent; border: 1px solid var(--border); color: var(--text-dim); border-radius: 6px; cursor: pointer; font-size: 10px; font-family: var(--mono); }
+  .review-ack-btn:hover:not(:disabled) { border-color: var(--accent); color: var(--accent); background: var(--accent-soft); }
+  .review-ack-btn:disabled { opacity: 0.5; cursor: default; }
+  .review-explain { margin-top: 8px; padding: 8px; background: var(--panel); border: 1px solid var(--border); border-radius: 7px; font-size: 10.5px; font-family: var(--mono); white-space: pre-wrap; }
+  .trace-bucket-title { margin-top: 8px; font-size: 10.5px; font-weight: 600; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.04em; }
+  .trace-row { margin-top: 4px; padding: 5px 8px; border: 1px solid var(--border); border-radius: 7px; font-size: 10.5px; font-family: var(--mono); }
+  .trace-row .ts { color: var(--text-dim); font-size: 9.5px; }
+  .stuck-card { margin-top: 8px; padding: 8px 10px; border: 1px solid #e2555560; border-radius: 8px; background: #e2555512; }
+  .stuck-card .stuck-title { font-weight: 600; font-size: 12px; }
+  .stuck-card .stuck-meta { margin-top: 2px; font-size: 10.5px; color: var(--text-dim); }
+  .stuck-card .stuck-history-title { margin-top: 6px; font-size: 10px; font-weight: 600; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.04em; }
+  .stuck-card .stuck-history-row { margin-top: 3px; font-size: 10.5px; }
+  .stuck-card .stuck-history-list { max-height: 180px; overflow-y: auto; margin-top: 2px; }
+  .stuck-card .stuck-history-row .ts { color: var(--text-dim); font-size: 9.5px; }
+  .reconcile-row { margin-top: 6px; padding: 6px 8px; border: 1px solid var(--border); border-radius: 7px; }
+  .reconcile-row .reason { color: var(--text-dim); font-size: 10.5px; margin-top: 2px; }
+  .reconcile-row .guidance { margin-top: 4px; font-size: 10.5px; font-style: italic; color: var(--text-dim); }
+  .reconcile-run-btn { margin-top: 4px; padding: 4px 8px; background: transparent; border: 1px solid var(--border); color: var(--text-dim); border-radius: 6px; cursor: pointer; font-size: 10px; font-family: var(--mono); }
+  .reconcile-run-btn:hover:not(:disabled) { border-color: var(--accent); color: var(--accent); background: var(--accent-soft); }
+  .reconcile-run-btn:disabled { opacity: 0.5; cursor: default; }
+  .drift-toggle-btn { display: inline-block; margin-top: 4px; padding-left: 8px; background: none; border: none; color: var(--accent); cursor: pointer; font-size: 10.5px; font-family: var(--mono); text-decoration: underline; }
+  .drift-toggle-btn:hover { color: #e64f16; }
+
+  /* ---------- Kane activity feed (4th tab) ---------- */
+  #kane-feed { position: absolute; inset: 0; display: none; overflow-y: auto; padding: 18px 22px; font-family: var(--mono); }
+  #kane-feed-empty { position: absolute; inset: 0; display: none; align-items: center; justify-content: center; color: var(--text-faint); font-size: 12px; font-family: var(--mono); text-align: center; padding: 40px; }
+  .kane-event { display: flex; align-items: baseline; gap: 12px; padding: 6px 10px; border-radius: 7px; font-size: 12px; }
+  .kane-event:hover { background: var(--hover); }
+  .kane-event .kts { color: var(--text-faint); font-size: 10.5px; white-space: nowrap; flex-shrink: 0; }
+  .kane-event .ktask { color: var(--text-dim); font-weight: 600; flex-shrink: 0; }
+  .kane-event .kdetail { color: var(--text); overflow-wrap: anywhere; }
+  .kane-event.k-ok .kdetail { color: var(--good); }
+  .kane-event.k-fail .kdetail { color: var(--bad); }
+  .kane-event.k-blocked .kdetail { color: var(--warn); }
+
+  /* ---------- focus / selection ---------- */
+  #focus, #selection { font-size: 11.5px; padding: 2px 6px 6px; }
+  #focus .sub, #selection .sub { color: var(--text-faint); }
+  #focus b { color: var(--accent); font-family: var(--mono); font-weight: 600; }
+  .sel-row { display: flex; align-items: center; gap: 7px; padding: 4px 0; font-family: var(--mono); font-size: 11px; color: var(--text-dim); border-bottom: 1px solid var(--border); }
+  .sel-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .sel-dot.type-code { background: #2f6fe0; }
+  .sel-dot.type-test { background: #1e8e5a; }
+  .sel-dot.type-feature { background: #c9821a; }
+  .sel-dot.type-claim { background: #7c4ddb; }
+  .sel-dot.type-external { background: #3d5a80; }
+  #selection-hint { font-size: 10.5px; color: var(--text-faint); margin: 4px 6px; padding: 6px 8px; border-radius: 6px; border: 1px dashed transparent; }
+  #selection-hint.visible { color: #c2590f; border-color: rgba(255,90,31,0.3); background: var(--accent-soft); }
+  #selection-actions { display: none; padding: 0 6px; }
+  #selection-actions.visible { display: flex; flex-direction: column; gap: 6px; }
+
+  /* ---------- chat (dedicated right panel, styled like a support chat widget) ---------- */
+  #chat-section { display: flex; flex-direction: column; flex: 1; min-height: 0; padding: 12px 12px 12px; }
+  #chat-log {
+    display: flex; flex-direction: column; gap: 12px; flex: 1; min-height: 80px; overflow-y: auto; margin-bottom: 10px; padding: 2px;
+    scrollbar-width: thin; scrollbar-color: var(--border) transparent;
+  }
+  #chat-log:hover, #chat-log.scroll-active { scrollbar-color: var(--border-strong) transparent; }
+  #chat-log::-webkit-scrollbar { width: 7px; }
+  #chat-log::-webkit-scrollbar-track { background: transparent; }
+  #chat-log::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; transition: background-color 150ms ease; }
+  #chat-log:hover::-webkit-scrollbar-thumb, #chat-log.scroll-active::-webkit-scrollbar-thumb { background: var(--border-strong); }
+  #chat-log:empty::after { content: 'no messages yet — select node(s) on the graph and ask about tests'; color: var(--text-faint); font-size: 10.5px; font-style: italic; }
+  .chat-msg-row { display: flex; align-items: flex-end; gap: 7px; }
+  .chat-msg-row.role-user { flex-direction: row-reverse; }
+  .chat-avatar { width: 22px; height: 22px; border-radius: 50%; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 9px; font-weight: 700; font-family: -apple-system, BlinkMacSystemFont, sans-serif; letter-spacing: -0.02em; }
+  .chat-avatar.agent { background: var(--accent); color: #fff; }
+  .chat-avatar.user { background: var(--border-strong); color: var(--text-dim); }
+  .chat-bubble { max-width: 79%; padding: 8px 10px; border-radius: 15px; font-size: 11.5px; line-height: 1.5; font-family: -apple-system, BlinkMacSystemFont, sans-serif; }
+  .chat-msg-row.role-agent .chat-bubble { background: var(--panel-raised); border: 1px solid var(--border); color: var(--text); border-bottom-left-radius: 4px; }
+  .chat-msg-row.role-user .chat-bubble { background: var(--accent); color: #fff; border-bottom-right-radius: 4px; }
+  .chat-text { white-space: pre-wrap; word-break: break-word; }
+  .chat-time { display: block; margin-top: 5px; font-size: 9px; font-family: var(--mono); opacity: 0.6; }
+  .chat-reco { display: block; font-size: 10px; font-family: var(--mono); font-style: italic; margin-bottom: 5px; opacity: 0.75; }
+  .chat-node-tags { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 5px; }
+  .chat-node-tag { display: inline-block; border-radius: 4px; padding: 1px 6px; font-size: 9.5px; font-family: var(--mono); cursor: pointer; }
+  .role-agent .chat-node-tag { background: var(--accent-soft-strong); border: 1px solid rgba(255,90,31,0.3); color: #c2590f; }
+  .role-agent .chat-node-tag:hover { background: rgba(255,90,31,0.26); }
+  .role-user .chat-node-tag { background: rgba(255,255,255,0.22); border: 1px solid rgba(255,255,255,0.4); color: #fff; }
+  .role-user .chat-node-tag:hover { background: rgba(255,255,255,0.32); }
+  .quick-prompts { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 8px; flex-shrink: 0; }
+  .quick-prompt-btn { font-size: 10.5px; font-family: -apple-system, BlinkMacSystemFont, sans-serif; color: var(--text-dim); background: var(--panel); border: 1px solid var(--border); border-radius: 999px; padding: 5px 10px; cursor: pointer; }
+  .quick-prompt-btn:hover { color: var(--accent); border-color: var(--accent); background: var(--accent-soft); }
+  #chat-input-row { display: flex; gap: 6px; align-items: flex-end; flex-shrink: 0; }
+  #chat-input { flex: 1; padding: 8px 10px; background: var(--panel-raised); border: 1px solid var(--border); color: var(--text); border-radius: 12px; font-family: -apple-system, BlinkMacSystemFont, sans-serif; font-size: 11.5px; resize: none; }
+  #chat-input:focus { outline: none; border-color: var(--accent); background: #fff; }
+  #chat-input::placeholder { color: var(--text-faint); }
+  #chat-send { width: 34px; height: 34px; flex-shrink: 0; padding: 0; background: var(--accent); border: none; color: #fff; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+  #chat-send svg { width: 15px; height: 15px; }
+  #chat-send:hover:not(:disabled) { background: #e64f16; }
+  #chat-send:disabled { opacity: 0.45; cursor: default; }
+  #chat-status { font-size: 10px; color: var(--text-faint); margin-top: 7px; min-height: 14px; flex-shrink: 0; }
+  #chat-status.pending::after { content: ''; display: inline-block; width: 3px; height: 3px; border-radius: 50%; background: var(--text-faint); margin-left: 4px; box-shadow: 6px 0 var(--text-faint), 12px 0 var(--text-faint); animation: chat-pulse 1.1s infinite ease-in-out; }
+  @keyframes chat-pulse { 0%, 100% { opacity: 0.25; } 50% { opacity: 1; } }
+
+  /* ---------- canvas area ---------- */
+  /* min-width: 0 overrides the flex item's default min-width:auto, which
+     otherwise floors this item's shrink-ability at its content's intrinsic
+     size — and Cytoscape's canvas elements get an explicit inline pixel
+     width set to match whatever size this box last resized to, so without
+     this override the box can grow when a side panel collapses but can
+     never shrink back down again once the panel reopens (it pins at the
+     canvas's last width, pushing the far panel off-screen by the overflow,
+     and the resulting layout contention on every reflow is what was
+     driving the side panels' scrollbar flicker too). */
+  #cy-wrap { position: relative; flex: 1; min-width: 0; height: 100%; background: var(--bg); }
+  #cy, #cy-mem, #cy-prd { width: 100%; height: 100%; opacity: 0; transition: opacity 400ms ease; }
+  #cy.ready, #cy-mem.ready, #cy-prd.ready { opacity: 1; }
+  #cy-mem { position: absolute; inset: 0; display: none; }
+  #cy-mem-empty { position: absolute; inset: 0; display: none; align-items: center; justify-content: center; color: var(--text-faint); font-size: 12px; font-family: var(--mono); text-align: center; padding: 40px; }
+  #cy-prd { position: absolute; inset: 0; display: none; }
+  #cy-prd-empty { position: absolute; inset: 0; display: none; align-items: center; justify-content: center; color: var(--text-faint); font-size: 12px; font-family: var(--mono); text-align: center; padding: 40px; }
+  #hint { position: absolute; left: 16px; bottom: 14px; font-size: 11px; color: var(--text-faint); font-family: var(--mono); pointer-events: none; letter-spacing: 0.01em; }
+  #fit-btn { position: absolute; right: 16px; bottom: 14px; background: var(--panel); border: 1px solid var(--border); color: var(--text-dim); font-size: 11px; font-family: var(--mono); padding: 6px 10px; border-radius: 7px; cursor: pointer; box-shadow: 0 2px 8px rgba(20,20,15,0.06); }
+  #fit-btn:hover { color: var(--accent); border-color: var(--accent); }
+  #graph-status-banner { position: absolute; top: 0; left: 0; right: 0; z-index: 5; padding: 8px 16px; font-size: 12px; font-family: var(--mono); display: flex; align-items: center; gap: 10px; justify-content: space-between; }
+  #graph-status-banner.error { background: #f6dede; color: #8a2c2c; border-bottom: 1px solid #e0b4b4; }
+  #graph-status-banner.stale { background: #eef2fb; color: #2c4a8a; border-bottom: 1px solid #b9c8ea; }
+  #graph-status-banner button { background: transparent; border: 1px solid currentColor; color: inherit; font-family: var(--mono); font-size: 11px; padding: 3px 9px; border-radius: 6px; cursor: pointer; }
+  #graph-status-banner button:hover { opacity: 0.75; }
+
+  /* ---------- centered detail modal (memory/PRD graph node & edge detail) ---------- */
+  #detail-modal-backdrop {
+    position: fixed; inset: 0; z-index: 50; display: none; align-items: center; justify-content: center;
+    background: rgba(22,21,15,0.32); backdrop-filter: blur(1px);
+  }
+  #detail-modal-backdrop.visible { display: flex; }
+  #detail-modal {
+    width: min(560px, calc(100vw - 48px)); max-height: min(72vh, 640px); display: flex; flex-direction: column;
+    background: var(--panel); border: 1px solid var(--border); border-radius: 14px;
+    box-shadow: 0 24px 64px rgba(20,20,15,0.22); overflow: hidden;
+  }
+  #detail-modal-header { display: flex; align-items: center; justify-content: flex-end; padding: 10px 10px 0; flex-shrink: 0; }
+  #detail-modal-close {
+    appearance: none; background: none; border: 1px solid var(--border); color: var(--text-faint);
+    width: 26px; height: 26px; border-radius: 7px; cursor: pointer; display: flex; align-items: center; justify-content: center;
+  }
+  #detail-modal-close:hover { color: var(--text); border-color: var(--border-strong); background: var(--hover); }
+  #detail-modal-close svg { width: 13px; height: 13px; }
+  #detail-modal-body { padding: 4px 22px 22px; overflow-y: auto; font-size: 12.5px; line-height: 1.6; }
+  #detail-modal-body .modal-title { font-family: var(--display); font-size: 15px; font-weight: 700; margin: 4px 0 10px; }
+  #detail-modal-body .modal-kind { color: var(--text-faint); font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 12px; }
+  #detail-modal-body .sub { color: var(--text-faint); }
+  #detail-modal-body b { color: var(--accent); font-family: var(--mono); font-weight: 600; }
+</style>
+</head>
+<body>
+<div id="app">
+  <div id="tabs">
+    <button class="tab-btn active" id="tab-code" data-tab="code">Code graph</button>
+    <button class="tab-btn" id="tab-memory" data-tab="memory">Memory graph</button>
+    <button class="tab-btn" id="tab-prd" data-tab="prd">PRD graph</button>
+    <button class="tab-btn" id="tab-kane" data-tab="kane">Kane activity</button>
+  </div>
+  <div id="main-row">
+    <div id="panel">
+      <div id="panel-header">
+        <h1>GuardianKane</h1>
+        <div style="display:flex; align-items:center; gap:10px;">
+          <button id="show-guide" title="What is this dashboard?">guide</button>
+          <button id="reset-filters">reset filters</button>
+          <button class="panel-collapse-btn" id="collapse-panel" title="Collapse this panel">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 6l-6 6 6 6"/></svg>
+          </button>
+        </div>
+      </div>
+      <div id="target-path">loading…</div>
+      <div id="search-wrap" data-tabs="code"><input id="search" placeholder="filter by id/label…"></div>
+
+      <div class="section" id="section-nodes" data-tabs="code">
+        <div class="section-header"><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M6 9l6 6 6-6"/></svg><span class="section-title">Nodes</span></div>
+        <div class="section-body" id="legend-nodes"></div>
+      </div>
+      <div class="section" id="section-edges" data-tabs="code">
+        <div class="section-header"><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M6 9l6 6 6-6"/></svg><span class="section-title">Edges</span></div>
+        <div class="section-body" id="legend-edges"></div>
+      </div>
+      <div class="section" id="section-phases" data-tabs="code" style="display:none;">
+        <div class="section-header"><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M6 9l6 6 6-6"/></svg><span class="section-title">Phases</span></div>
+        <div class="section-body" id="legend-phases"></div>
+      </div>
+      <div class="section" id="section-quality" data-tabs="code" style="display:none;">
+        <div class="section-header"><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M6 9l6 6 6-6"/></svg><span class="section-title">Test quality</span></div>
+        <div class="section-body" id="legend-quality"></div>
+      </div>
+      <div class="section" id="section-inspect" data-tabs="code">
+        <div class="section-header"><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M6 9l6 6 6-6"/></svg><span class="section-title">Focus &amp; selection</span></div>
+        <div class="section-body">
+          <div id="focus"><div class="sub">click a node or edge to examine its connections</div></div>
+          <div id="selection"><div class="sub">click a node to select it · shift-click for more · double-click to focus</div></div>
+          <div id="selection-hint"></div>
+          <div id="selection-actions">
+            <button id="ask-tests-btn" class="action-btn">Ask about tests</button>
+            <button id="generate-tests-btn" class="action-btn primary">Generate tests</button>
+          </div>
+        </div>
+      </div>
+      <div class="section" id="section-review" data-tabs="code">
+        <div class="section-header"><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M6 9l6 6 6-6"/></svg><span class="section-title">Review card</span></div>
+        <div class="section-body" id="review-body">
+          <div class="sub">select a verified task node to review it</div>
+        </div>
+      </div>
+      <div class="section" id="section-trace" data-tabs="code">
+        <div class="section-header"><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M6 9l6 6 6-6"/></svg><span class="section-title">Trace</span></div>
+        <div class="section-body" id="trace-body">
+          <div class="sub">select a task node to see its trace</div>
+        </div>
+      </div>
+
+      <div class="section" id="section-stuck" data-tabs="all" style="display:none;">
+        <div class="section-header"><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M6 9l6 6 6-6"/></svg><span class="section-title">Stuck tasks</span></div>
+        <div class="section-body" id="stuck-body"></div>
+      </div>
+      <div class="section collapsed" id="section-overview" data-tabs="code">
+        <div class="section-header"><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M6 9l6 6 6-6"/></svg><span class="section-title">Overview</span></div>
+        <div class="section-body"><div id="counts">loading…</div></div>
+      </div>
+      <div class="section" id="section-drift" data-tabs="prd" style="display:none;">
+        <div class="section-header"><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M6 9l6 6 6-6"/></svg><span class="section-title">Gaps &amp; drift</span></div>
+        <div class="section-body" id="drift-body"></div>
+      </div>
+      <div class="section collapsed" id="section-reconcile" data-tabs="prd">
+        <div class="section-header"><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M6 9l6 6 6-6"/></svg><span class="section-title">Sync plan</span></div>
+        <div class="section-body" id="reconcile-body">
+          <div class="sub">no sync has run yet</div>
+        </div>
+      </div>
+      <div class="section collapsed" id="section-browser-review" data-tabs="code">
+        <div class="section-header"><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M6 9l6 6 6-6"/></svg><span class="section-title">Browser review</span></div>
+        <div class="section-body">
+          <input id="browser-review-ws" placeholder="LambdaTest wss:// endpoint (optional)">
+          <div class="action-row"><button id="run-browser-review-btn" class="action-btn">Run browser review</button></div>
+          <div id="browser-review-status"></div>
+          <div id="browser-review-result"></div>
+        </div>
+      </div>
+      <div class="section collapsed" id="section-quick-generate" data-tabs="code">
+        <div class="section-header"><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M6 9l6 6 6-6"/></svg><span class="section-title">Quick generate</span></div>
+        <div class="section-body">
+          <input id="quick-generate-objective" placeholder="Objective, e.g. 'Add a footer link to the docs page'">
+          <div class="action-row"><button id="run-quick-generate-btn" class="action-btn primary">Generate &amp; save</button></div>
+          <div id="quick-generate-status"></div>
+        </div>
+      </div>
+      <div class="section" id="section-mutation" data-tabs="code" style="display:none;">
+        <div class="section-header"><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M6 9l6 6 6-6"/></svg><span class="section-title">Mutation scan <span class="dim">(src/lib)</span></span></div>
+        <div class="section-body">
+          <div id="quality-summary"></div>
+          <div class="action-row"><button id="run-mutation-btn" class="action-btn">Run mutation scan</button></div>
+          <div id="mutation-status"></div>
+        </div>
+      </div>
+    </div>
+    <div id="cy-wrap">
+      <div id="graph-status-banner" style="display:none;"></div>
+      <div id="cy"></div>
+      <div id="cy-mem"></div>
+      <div id="cy-mem-empty">no verification runs recorded yet in<br>knowledge-memory.json</div>
+      <div id="cy-prd"></div>
+      <div id="cy-prd-empty">no PRD context recorded yet</div>
+      <div id="kane-feed"></div>
+      <div id="kane-feed-empty">no Kane activity recorded yet — this fills in as the Stop hook verifies tasks</div>
+      <div id="hint">scroll to zoom · drag to pan · click node/edge to examine · double-click to focus · f to fit</div>
+      <button id="fit-btn">fit graph</button>
+      <button class="reopen-tab" id="reopen-panel" title="Show legend &amp; details">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 6l6 6-6 6"/></svg>
+        Index
+      </button>
+      <button class="reopen-tab" id="reopen-chat" title="Show chat">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 6l-6 6 6 6"/></svg>
+        Ask GuardianKane
+      </button>
+    </div>
+    <div id="chat-panel">
+      <div id="chat-panel-header">
+        <div class="title-group">
+          <button class="panel-collapse-btn" id="collapse-chat" title="Collapse this panel">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 6l6 6-6 6"/></svg>
+          </button>
+          <h1>Ask GuardianKane</h1>
+        </div>
+        <span class="live-dot" title="live agent bridge"></span>
+      </div>
+      <div id="chat-section">
+        <div id="chat-log"></div>
+        <div class="quick-prompts" id="quick-prompts"></div>
+        <div id="chat-input-row">
+          <textarea id="chat-input" rows="1" placeholder="Ask about tests, risk, coverage…"></textarea>
+          <button id="chat-send" title="Send">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h15M13 6l6 6-6 6"/></svg>
+          </button>
+        </div>
+        <div id="chat-status"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="detail-modal-backdrop">
+  <div id="detail-modal">
+    <div id="detail-modal-header">
+      <button id="detail-modal-close" title="Close">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+    </div>
+    <div id="detail-modal-body"></div>
+  </div>
+</div>
+
+<script src="vendor/layout-base.js"></script>
+<script src="vendor/cose-base.js"></script>
+<script src="vendor/cytoscape.umd.js"></script>
+<script src="vendor/cytoscape-fcose.js"></script>
+<script src="graph.js"></script>
+<script src="chat.js"></script>
+</body>
+</html>

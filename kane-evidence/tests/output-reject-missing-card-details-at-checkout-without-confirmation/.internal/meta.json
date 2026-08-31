@@ -1,0 +1,27 @@
+{
+  "commit_id": "2ba2cfb7-a953-4b66-9a9e-5652da4de555",
+  "test_id": "de72ce5b-d285-4b64-b783-86a789e75f28",
+  "testcase_id": "01M18XHGH53EZQZQJ4EXC6WDMX",
+  "project_id": "01M18JVVF6P74EKJ5HS52DWWDD",
+  "folder_id": "01M18JVW3T91Y0ZW62FSTCM8V2",
+  "org_id": "3303581",
+  "session_name": "reject-missing-card-details-at-checkout-without-confirmation",
+  "executions": [
+    {
+      "execution_id": "e628f9e5-3855-4214-a698-c0426eb8573a",
+      "run_kind": "author",
+      "status": "passed",
+      "valid": true,
+      "uploaded": true,
+      "at": "2026-08-30T08:53:47.229Z"
+    },
+    {
+      "execution_id": "265bd72e-063f-41fc-9af4-1aeda2cab374",
+      "run_kind": "replay",
+      "status": "passed",
+      "valid": true,
+      "uploaded": true,
+      "at": "2026-08-30T08:59:07.347Z"
+    }
+  ]
+}
