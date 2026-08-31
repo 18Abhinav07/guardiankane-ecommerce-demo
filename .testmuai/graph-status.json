@@ -1,0 +1,7 @@
+{
+  "ok": true,
+  "generatedAt": "2026-08-29T14:59:06.407Z",
+  "nodeCount": 49,
+  "edgeCount": 95,
+  "summary": "graph written: 49 nodes (34 code, 0 test, 6 feature, 5 claim, 4 external), 95 edges (39 imports, 0 tests, 13 touches, 0 calls, 6 about, 37 external), drift (1 orphan claims, 4 orphan features, 7 stale files, 30 uncovered code, 0 low-trust claims, 0 pending gaps) -> /Users/18abhinav07/Documents/guardiankane-ecommerce-demo/.testmuai/graph.json"
+}

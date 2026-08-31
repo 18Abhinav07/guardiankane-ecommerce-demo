@@ -1,4 +1,12 @@
 node_modules/
-.testmuai/
+# .testmuai/ holds live GuardianKane/Kane state. Most of it stays untracked
+# (raw browser-evidence packs, an old-org backup dir) but the small files
+# the dashboard actually reads (kane-activity.log, task-tracker.md,
+# graph.json, config) are committed on purpose — that's what makes
+# `npm run dashboard` show real history immediately after a fresh clone,
+# instead of an empty dashboard.
+.testmuai/evidence/
+.testmuai/tests-old-org-backup/
+.testmuai/tests/
 .context/
 .context.old-org-3281823-backup/

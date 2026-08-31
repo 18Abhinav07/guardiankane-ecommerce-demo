@@ -1,0 +1,223 @@
+{
+  "entries": {
+    "76359fd82970f1fc063d90897f7007cd88e8aeda": {
+      "nodeIds": [
+        "package.json",
+        "public/app.js",
+        "public/index.html",
+        "public/styles.css",
+        "server.js"
+      ],
+      "runs": [
+        {
+          "timestamp": "2026-08-29T14:45:30.514Z",
+          "objective": "Scaffold — clone + boot",
+          "status": "fail"
+        }
+      ],
+      "status": "failing"
+    },
+    "4b0b4c516d465e48f9f6b657bd9695f3dd92701e": {
+      "nodeIds": [
+        "/Users/18abhinav07/Documents/guardiankane-ecommerce-demo/server.js",
+        "package.json",
+        "public/app.js",
+        "public/index.html",
+        "public/styles.css",
+        "server.js"
+      ],
+      "runs": [
+        {
+          "timestamp": "2026-08-29T14:59:56.255Z",
+          "objective": "Scaffold — clone + boot",
+          "status": "fail"
+        },
+        {
+          "timestamp": "2026-08-29T15:00:23.269Z",
+          "objective": "Scaffold — clone + boot",
+          "status": "fail"
+        },
+        {
+          "timestamp": "2026-08-29T16:41:02.314Z",
+          "objective": "Scaffold — clone + boot",
+          "status": "pass"
+        }
+      ],
+      "status": "fixed"
+    },
+    "c5e53e6ec044e34fcd4638260dccb63dfe3f16ee": {
+      "nodeIds": [
+        "/Users/18abhinav07/Documents/guardiankane-ecommerce-demo/package.json",
+        "/Users/18abhinav07/Documents/guardiankane-ecommerce-demo/public/app.js",
+        "/Users/18abhinav07/Documents/guardiankane-ecommerce-demo/public/cart.html",
+        "/Users/18abhinav07/Documents/guardiankane-ecommerce-demo/public/cart.js",
+        "/Users/18abhinav07/Documents/guardiankane-ecommerce-demo/public/index.html",
+        "/Users/18abhinav07/Documents/guardiankane-ecommerce-demo/public/styles.css",
+        "/Users/18abhinav07/Documents/guardiankane-ecommerce-demo/server.js"
+      ],
+      "runs": [
+        {
+          "timestamp": "2026-08-29T16:53:22.158Z",
+          "objective": "PRD.md#UC-1",
+          "status": "fail"
+        },
+        {
+          "timestamp": "2026-08-29T16:57:38.664Z",
+          "objective": "PRD.md#UC-1",
+          "status": "fail"
+        },
+        {
+          "timestamp": "2026-08-29T17:03:48.729Z",
+          "objective": "PRD.md#UC-1",
+          "status": "fail"
+        },
+        {
+          "timestamp": "2026-08-29T18:02:42.668Z",
+          "objective": "PRD.md#UC-1",
+          "status": "fail"
+        },
+        {
+          "timestamp": "2026-08-29T18:07:51.157Z",
+          "objective": "PRD.md#UC-1",
+          "status": "fail"
+        },
+        {
+          "timestamp": "2026-08-29T18:16:18.660Z",
+          "objective": "PRD.md#UC-1",
+          "status": "fail"
+        },
+        {
+          "timestamp": "2026-08-29T18:23:35.044Z",
+          "objective": "PRD.md#UC-1",
+          "status": "fail"
+        },
+        {
+          "timestamp": "2026-08-29T18:32:43.277Z",
+          "objective": "PRD.md#UC-1",
+          "status": "pass"
+        }
+      ],
+      "status": "fixed"
+    },
+    "d6c8d3154b4d76c16af5074db1b28896c404e375": {
+      "nodeIds": [
+        "/Users/18abhinav07/Documents/guardiankane-ecommerce-demo/public/cart.js",
+        "/Users/18abhinav07/Documents/guardiankane-ecommerce-demo/public/styles.css",
+        "/Users/18abhinav07/Documents/guardiankane-ecommerce-demo/server.js"
+      ],
+      "runs": [
+        {
+          "timestamp": "2026-08-29T18:40:41.105Z",
+          "objective": "PRD.md#UC-2",
+          "status": "fail"
+        },
+        {
+          "timestamp": "2026-08-29T19:01:18.394Z",
+          "objective": "PRD.md#UC-2",
+          "status": "pass"
+        }
+      ],
+      "status": "fixed"
+    },
+    "6909e1f416864b0404bd1ca85403df6a00ee1f09": {
+      "nodeIds": [
+        "/Users/18abhinav07/Documents/guardiankane-ecommerce-demo/public/account.js",
+        "/Users/18abhinav07/Documents/guardiankane-ecommerce-demo/public/cart.html",
+        "/Users/18abhinav07/Documents/guardiankane-ecommerce-demo/public/index.html",
+        "/Users/18abhinav07/Documents/guardiankane-ecommerce-demo/public/signin.html",
+        "/Users/18abhinav07/Documents/guardiankane-ecommerce-demo/public/signin.js",
+        "/Users/18abhinav07/Documents/guardiankane-ecommerce-demo/public/signup.html",
+        "/Users/18abhinav07/Documents/guardiankane-ecommerce-demo/public/signup.js",
+        "/Users/18abhinav07/Documents/guardiankane-ecommerce-demo/public/styles.css",
+        "/Users/18abhinav07/Documents/guardiankane-ecommerce-demo/server.js"
+      ],
+      "runs": [
+        {
+          "timestamp": "2026-08-29T21:42:26.584Z",
+          "objective": "PRD.md#UC-3",
+          "status": "fail"
+        },
+        {
+          "timestamp": "2026-08-29T21:47:27.141Z",
+          "objective": "PRD.md#UC-3",
+          "status": "fail"
+        },
+        {
+          "timestamp": "2026-08-30T03:26:01.939Z",
+          "objective": "PRD.md#UC-3",
+          "status": "fail",
+          "bugTitle": "Signed-in header assertion expects wrong email value",
+          "rootCause": "The test expected a different or unresolved email value than what the signed-in header displayed, so the check failed even though the shopper appears to be recognized.",
+          "family": "automation_bug",
+          "confidence": 0.96
+        },
+        {
+          "timestamp": "2026-08-30T06:24:11.256Z",
+          "objective": "PRD.md#UC-3",
+          "status": "fail"
+        },
+        {
+          "timestamp": "2026-08-30T06:40:59.753Z",
+          "objective": "PRD.md#UC-3",
+          "status": "pass"
+        }
+      ],
+      "status": "fixed"
+    },
+    "ddbd307c8e0b274c77e6666f123320edbfb3e298": {
+      "nodeIds": [
+        "public/cart.js",
+        "public/checkout.js",
+        "public/styles.css",
+        "server.js",
+        "views/checkout.html"
+      ],
+      "runs": [
+        {
+          "timestamp": "2026-08-30T07:01:15.242Z",
+          "objective": "PRD.md#UC-4",
+          "status": "fail"
+        },
+        {
+          "timestamp": "2026-08-30T07:14:33.062Z",
+          "objective": "PRD.md#UC-4",
+          "status": "fail"
+        },
+        {
+          "timestamp": "2026-08-30T07:45:30.913Z",
+          "objective": "PRD.md#UC-4",
+          "status": "pass"
+        }
+      ],
+      "status": "fixed"
+    },
+    "62bf1bc0308465fc3341c0c0a5236b9a02b6503a": {
+      "nodeIds": [
+        "public/checkout.js",
+        "public/order-confirmation.html",
+        "public/order-confirmation.js",
+        "public/styles.css",
+        "server.js",
+        "views/checkout.html"
+      ],
+      "runs": [
+        {
+          "timestamp": "2026-08-30T08:47:44.891Z",
+          "objective": "PRD.md#UC-5",
+          "status": "fail"
+        },
+        {
+          "timestamp": "2026-08-30T08:53:48.055Z",
+          "objective": "PRD.md#UC-5",
+          "status": "fail"
+        },
+        {
+          "timestamp": "2026-08-30T08:59:08.136Z",
+          "objective": "PRD.md#UC-5",
+          "status": "fail"
+        }
+      ],
+      "status": "failing"
+    }
+  }
+}

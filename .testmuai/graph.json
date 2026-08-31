@@ -1,0 +1,995 @@
+{
+  "generatedAt": "2026-08-29T14:59:06.407Z",
+  "target": "/Users/18abhinav07/Documents/guardiankane-ecommerce-demo",
+  "nodes": [
+    {
+      "id": ".claude/hooks/guardian-kane-open-pr.js",
+      "type": "code",
+      "dir": ".claude/hooks",
+      "phases": []
+    },
+    {
+      "id": ".claude/hooks/guardian-kane-post-tool-use-entry.js",
+      "type": "code",
+      "dir": ".claude/hooks",
+      "phases": []
+    },
+    {
+      "id": ".claude/hooks/guardian-kane-post-tool-use.js",
+      "type": "code",
+      "dir": ".claude/hooks",
+      "phases": []
+    },
+    {
+      "id": ".claude/hooks/guardian-kane-pre-commit.js",
+      "type": "code",
+      "dir": ".claude/hooks",
+      "phases": []
+    },
+    {
+      "id": ".claude/hooks/guardian-kane-stop-entry.js",
+      "type": "code",
+      "dir": ".claude/hooks",
+      "phases": []
+    },
+    {
+      "id": ".claude/hooks/guardian-kane-stop.js",
+      "type": "code",
+      "dir": ".claude/hooks",
+      "phases": []
+    },
+    {
+      "id": "dashboard/lib/agent-bridge.js",
+      "type": "code",
+      "dir": "dashboard/lib",
+      "phases": []
+    },
+    {
+      "id": "dashboard/public/chat.js",
+      "type": "code",
+      "dir": "dashboard/public",
+      "phases": []
+    },
+    {
+      "id": "dashboard/public/graph.js",
+      "type": "code",
+      "dir": "dashboard/public",
+      "phases": []
+    },
+    {
+      "id": "dashboard/public/vendor/cose-base.js",
+      "type": "code",
+      "dir": "dashboard/public/vendor",
+      "phases": []
+    },
+    {
+      "id": "dashboard/public/vendor/cytoscape-fcose.js",
+      "type": "code",
+      "dir": "dashboard/public/vendor",
+      "phases": []
+    },
+    {
+      "id": "dashboard/public/vendor/cytoscape.umd.js",
+      "type": "code",
+      "dir": "dashboard/public/vendor",
+      "phases": []
+    },
+    {
+      "id": "dashboard/public/vendor/layout-base.js",
+      "type": "code",
+      "dir": "dashboard/public/vendor",
+      "phases": []
+    },
+    {
+      "id": "dashboard/server.js",
+      "type": "code",
+      "dir": "dashboard",
+      "phases": []
+    },
+    {
+      "id": "lib/bug-memory.js",
+      "type": "code",
+      "dir": "lib",
+      "phases": []
+    },
+    {
+      "id": "lib/config.js",
+      "type": "code",
+      "dir": "lib",
+      "phases": []
+    },
+    {
+      "id": "lib/evidence.js",
+      "type": "code",
+      "dir": "lib",
+      "phases": []
+    },
+    {
+      "id": "lib/graph-build.js",
+      "type": "code",
+      "dir": "lib",
+      "phases": []
+    },
+    {
+      "id": "lib/kane-context.js",
+      "type": "code",
+      "dir": "lib",
+      "phases": []
+    },
+    {
+      "id": "lib/kane-generate.js",
+      "type": "code",
+      "dir": "lib",
+      "phases": []
+    },
+    {
+      "id": "lib/kane-review.js",
+      "type": "code",
+      "dir": "lib",
+      "phases": []
+    },
+    {
+      "id": "lib/kane.js",
+      "type": "code",
+      "dir": "lib",
+      "phases": []
+    },
+    {
+      "id": "lib/knowledge-memory.js",
+      "type": "code",
+      "dir": "lib",
+      "phases": []
+    },
+    {
+      "id": "lib/logger.js",
+      "type": "code",
+      "dir": "lib",
+      "phases": []
+    },
+    {
+      "id": "lib/quality-scan.js",
+      "type": "code",
+      "dir": "lib",
+      "phases": []
+    },
+    {
+      "id": "lib/reconcile.js",
+      "type": "code",
+      "dir": "lib",
+      "phases": []
+    },
+    {
+      "id": "lib/review-card.js",
+      "type": "code",
+      "dir": "lib",
+      "phases": []
+    },
+    {
+      "id": "lib/stuck-tasks.js",
+      "type": "code",
+      "dir": "lib",
+      "phases": []
+    },
+    {
+      "id": "lib/trace.js",
+      "type": "code",
+      "dir": "lib",
+      "phases": []
+    },
+    {
+      "id": "lib/tracker.js",
+      "type": "code",
+      "dir": "lib",
+      "phases": []
+    },
+    {
+      "id": "lib/verification-checks.js",
+      "type": "code",
+      "dir": "lib",
+      "phases": []
+    },
+    {
+      "id": "public/app.js",
+      "type": "code",
+      "dir": "public",
+      "phases": [
+        "P0",
+        "P1"
+      ]
+    },
+    {
+      "id": "public/cart.js",
+      "type": "code",
+      "dir": "public",
+      "phases": [
+        "P1"
+      ]
+    },
+    {
+      "id": "server.js",
+      "type": "code",
+      "dir": "",
+      "phases": [
+        "P0",
+        "P1"
+      ]
+    },
+    {
+      "id": "T0",
+      "type": "feature",
+      "label": "Scaffold — clone + boot",
+      "state": "IN_PROGRESS",
+      "phases": [
+        "P0"
+      ]
+    },
+    {
+      "id": "T1",
+      "type": "feature",
+      "label": "Add a product to the cart",
+      "state": "CLAIMED_DONE",
+      "phases": [
+        "P1"
+      ]
+    },
+    {
+      "id": "T2",
+      "type": "feature",
+      "label": "View & edit cart",
+      "state": "PLANNED",
+      "phases": [
+        "P1"
+      ]
+    },
+    {
+      "id": "T3",
+      "type": "feature",
+      "label": "Sign up / sign in",
+      "state": "PLANNED",
+      "phases": [
+        "P2"
+      ]
+    },
+    {
+      "id": "T4",
+      "type": "feature",
+      "label": "Checkout (auth-gated, cart-gated)",
+      "state": "PLANNED",
+      "phases": [
+        "P3"
+      ]
+    },
+    {
+      "id": "T5",
+      "type": "feature",
+      "label": "Payment & order confirmation",
+      "state": "PLANNED",
+      "phases": [
+        "P4"
+      ]
+    },
+    {
+      "id": "uc-4",
+      "type": "claim",
+      "title": "Add a product to the cart",
+      "trust": "trusted",
+      "fresh": "fresh",
+      "phases": []
+    },
+    {
+      "id": "uc-3",
+      "type": "claim",
+      "title": "Create an account or sign in",
+      "trust": "trusted",
+      "fresh": "fresh",
+      "phases": []
+    },
+    {
+      "id": "uc-1",
+      "type": "claim",
+      "title": "Place a paid order and receive confirmation",
+      "trust": "trusted",
+      "fresh": "fresh",
+      "phases": []
+    },
+    {
+      "id": "uc-2",
+      "type": "claim",
+      "title": "Proceed to checkout",
+      "trust": "trusted",
+      "fresh": "fresh",
+      "phases": []
+    },
+    {
+      "id": "uc-5",
+      "type": "claim",
+      "title": "Review and update the cart",
+      "trust": "trusted",
+      "fresh": "fresh",
+      "phases": []
+    },
+    {
+      "id": "external:fs",
+      "type": "external",
+      "label": "filesystem"
+    },
+    {
+      "id": "external:child_process",
+      "type": "external",
+      "label": "child_process"
+    },
+    {
+      "id": "external:http",
+      "type": "external",
+      "label": "HTTP / fetch"
+    },
+    {
+      "id": "external:browser-nav",
+      "type": "external",
+      "label": "browser navigation (window.location)"
+    }
+  ],
+  "edges": [
+    {
+      "from": ".claude/hooks/guardian-kane-open-pr.js",
+      "to": "lib/tracker.js",
+      "type": "imports",
+      "confidence": "confirmed"
+    },
+    {
+      "from": ".claude/hooks/guardian-kane-post-tool-use-entry.js",
+      "to": ".claude/hooks/guardian-kane-post-tool-use.js",
+      "type": "imports",
+      "confidence": "confirmed"
+    },
+    {
+      "from": ".claude/hooks/guardian-kane-post-tool-use-entry.js",
+      "to": "lib/config.js",
+      "type": "imports",
+      "confidence": "confirmed"
+    },
+    {
+      "from": ".claude/hooks/guardian-kane-post-tool-use-entry.js",
+      "to": "lib/graph-build.js",
+      "type": "imports",
+      "confidence": "confirmed"
+    },
+    {
+      "from": ".claude/hooks/guardian-kane-post-tool-use-entry.js",
+      "to": "lib/trace.js",
+      "type": "imports",
+      "confidence": "confirmed"
+    },
+    {
+      "from": ".claude/hooks/guardian-kane-post-tool-use-entry.js",
+      "to": "lib/tracker.js",
+      "type": "imports",
+      "confidence": "confirmed"
+    },
+    {
+      "from": ".claude/hooks/guardian-kane-post-tool-use.js",
+      "to": "lib/tracker.js",
+      "type": "imports",
+      "confidence": "confirmed"
+    },
+    {
+      "from": ".claude/hooks/guardian-kane-pre-commit.js",
+      "to": "lib/tracker.js",
+      "type": "imports",
+      "confidence": "confirmed"
+    },
+    {
+      "from": ".claude/hooks/guardian-kane-stop-entry.js",
+      "to": ".claude/hooks/guardian-kane-stop.js",
+      "type": "imports",
+      "confidence": "confirmed"
+    },
+    {
+      "from": ".claude/hooks/guardian-kane-stop-entry.js",
+      "to": "lib/bug-memory.js",
+      "type": "imports",
+      "confidence": "confirmed"
+    },
+    {
+      "from": ".claude/hooks/guardian-kane-stop-entry.js",
+      "to": "lib/config.js",
+      "type": "imports",
+      "confidence": "confirmed"
+    },
+    {
+      "from": ".claude/hooks/guardian-kane-stop-entry.js",
+      "to": "lib/kane.js",
+      "type": "imports",
+      "confidence": "confirmed"
+    },
+    {
+      "from": ".claude/hooks/guardian-kane-stop-entry.js",
+      "to": "lib/knowledge-memory.js",
+      "type": "imports",
+      "confidence": "confirmed"
+    },
+    {
+      "from": ".claude/hooks/guardian-kane-stop-entry.js",
+      "to": "lib/logger.js",
+      "type": "imports",
+      "confidence": "confirmed"
+    },
+    {
+      "from": ".claude/hooks/guardian-kane-stop-entry.js",
+      "to": "lib/tracker.js",
+      "type": "imports",
+      "confidence": "confirmed"
+    },
+    {
+      "from": ".claude/hooks/guardian-kane-stop-entry.js",
+      "to": "lib/verification-checks.js",
+      "type": "imports",
+      "confidence": "confirmed"
+    },
+    {
+      "from": ".claude/hooks/guardian-kane-stop.js",
+      "to": "lib/tracker.js",
+      "type": "imports",
+      "confidence": "confirmed"
+    },
+    {
+      "from": "dashboard/server.js",
+      "to": "dashboard/lib/agent-bridge.js",
+      "type": "imports",
+      "confidence": "confirmed"
+    },
+    {
+      "from": "dashboard/server.js",
+      "to": "lib/config.js",
+      "type": "imports",
+      "confidence": "confirmed"
+    },
+    {
+      "from": "dashboard/server.js",
+      "to": "lib/evidence.js",
+      "type": "imports",
+      "confidence": "confirmed"
+    },
+    {
+      "from": "dashboard/server.js",
+      "to": "lib/graph-build.js",
+      "type": "imports",
+      "confidence": "confirmed"
+    },
+    {
+      "from": "dashboard/server.js",
+      "to": "lib/kane-context.js",
+      "type": "imports",
+      "confidence": "confirmed"
+    },
+    {
+      "from": "dashboard/server.js",
+      "to": "lib/kane-generate.js",
+      "type": "imports",
+      "confidence": "confirmed"
+    },
+    {
+      "from": "dashboard/server.js",
+      "to": "lib/kane.js",
+      "type": "imports",
+      "confidence": "confirmed"
+    },
+    {
+      "from": "dashboard/server.js",
+      "to": "lib/reconcile.js",
+      "type": "imports",
+      "confidence": "confirmed"
+    },
+    {
+      "from": "dashboard/server.js",
+      "to": "lib/review-card.js",
+      "type": "imports",
+      "confidence": "confirmed"
+    },
+    {
+      "from": "dashboard/server.js",
+      "to": "lib/stuck-tasks.js",
+      "type": "imports",
+      "confidence": "confirmed"
+    },
+    {
+      "from": "dashboard/server.js",
+      "to": "lib/trace.js",
+      "type": "imports",
+      "confidence": "confirmed"
+    },
+    {
+      "from": "dashboard/server.js",
+      "to": "lib/tracker.js",
+      "type": "imports",
+      "confidence": "confirmed"
+    },
+    {
+      "from": "lib/graph-build.js",
+      "to": "lib/logger.js",
+      "type": "imports",
+      "confidence": "confirmed"
+    },
+    {
+      "from": "lib/graph-build.js",
+      "to": "lib/tracker.js",
+      "type": "imports",
+      "confidence": "confirmed"
+    },
+    {
+      "from": "lib/kane-context.js",
+      "to": "lib/graph-build.js",
+      "type": "imports",
+      "confidence": "confirmed"
+    },
+    {
+      "from": "lib/kane-context.js",
+      "to": "lib/tracker.js",
+      "type": "imports",
+      "confidence": "confirmed"
+    },
+    {
+      "from": "lib/kane.js",
+      "to": "lib/config.js",
+      "type": "imports",
+      "confidence": "confirmed"
+    },
+    {
+      "from": "lib/kane.js",
+      "to": "lib/evidence.js",
+      "type": "imports",
+      "confidence": "confirmed"
+    },
+    {
+      "from": "lib/review-card.js",
+      "to": "lib/evidence.js",
+      "type": "imports",
+      "confidence": "confirmed"
+    },
+    {
+      "from": "lib/verification-checks.js",
+      "to": "lib/evidence.js",
+      "type": "imports",
+      "confidence": "confirmed"
+    },
+    {
+      "from": "lib/verification-checks.js",
+      "to": "lib/kane-review.js",
+      "type": "imports",
+      "confidence": "confirmed"
+    },
+    {
+      "from": "lib/verification-checks.js",
+      "to": "lib/review-card.js",
+      "type": "imports",
+      "confidence": "confirmed"
+    },
+    {
+      "from": "T0",
+      "to": "server.js",
+      "type": "touches",
+      "confidence": "confirmed"
+    },
+    {
+      "from": "T0",
+      "to": "public/index.html",
+      "type": "touches",
+      "confidence": "confirmed"
+    },
+    {
+      "from": "T0",
+      "to": "public/styles.css",
+      "type": "touches",
+      "confidence": "confirmed"
+    },
+    {
+      "from": "T0",
+      "to": "public/app.js",
+      "type": "touches",
+      "confidence": "confirmed"
+    },
+    {
+      "from": "T0",
+      "to": "package.json",
+      "type": "touches",
+      "confidence": "confirmed"
+    },
+    {
+      "from": "T0",
+      "to": "server.js",
+      "type": "touches",
+      "confidence": "confirmed"
+    },
+    {
+      "from": "T1",
+      "to": "server.js",
+      "type": "touches",
+      "confidence": "confirmed"
+    },
+    {
+      "from": "T1",
+      "to": "public/app.js",
+      "type": "touches",
+      "confidence": "confirmed"
+    },
+    {
+      "from": "T1",
+      "to": "public/index.html",
+      "type": "touches",
+      "confidence": "confirmed"
+    },
+    {
+      "from": "T1",
+      "to": "public/cart.html",
+      "type": "touches",
+      "confidence": "confirmed"
+    },
+    {
+      "from": "T1",
+      "to": "public/cart.js",
+      "type": "touches",
+      "confidence": "confirmed"
+    },
+    {
+      "from": "T1",
+      "to": "public/styles.css",
+      "type": "touches",
+      "confidence": "confirmed"
+    },
+    {
+      "from": "T1",
+      "to": "package.json",
+      "type": "touches",
+      "confidence": "confirmed"
+    },
+    {
+      "from": "uc-4",
+      "to": "dashboard/server.js",
+      "type": "about",
+      "confidence": "inferred"
+    },
+    {
+      "from": "uc-4",
+      "to": "public/cart.js",
+      "type": "about",
+      "confidence": "inferred"
+    },
+    {
+      "from": "uc-4",
+      "to": "server.js",
+      "type": "about",
+      "confidence": "inferred"
+    },
+    {
+      "from": "uc-1",
+      "to": "public/cart.js",
+      "type": "about",
+      "confidence": "inferred"
+    },
+    {
+      "from": "uc-2",
+      "to": "public/cart.js",
+      "type": "about",
+      "confidence": "inferred"
+    },
+    {
+      "from": "uc-5",
+      "to": "public/cart.js",
+      "type": "about",
+      "confidence": "inferred"
+    },
+    {
+      "from": ".claude/hooks/guardian-kane-open-pr.js",
+      "to": "external:fs",
+      "type": "external",
+      "confidence": "inferred"
+    },
+    {
+      "from": ".claude/hooks/guardian-kane-open-pr.js",
+      "to": "external:child_process",
+      "type": "external",
+      "confidence": "inferred"
+    },
+    {
+      "from": ".claude/hooks/guardian-kane-post-tool-use-entry.js",
+      "to": "external:fs",
+      "type": "external",
+      "confidence": "inferred"
+    },
+    {
+      "from": ".claude/hooks/guardian-kane-post-tool-use-entry.js",
+      "to": "external:child_process",
+      "type": "external",
+      "confidence": "inferred"
+    },
+    {
+      "from": ".claude/hooks/guardian-kane-pre-commit.js",
+      "to": "external:fs",
+      "type": "external",
+      "confidence": "inferred"
+    },
+    {
+      "from": ".claude/hooks/guardian-kane-pre-commit.js",
+      "to": "external:child_process",
+      "type": "external",
+      "confidence": "inferred"
+    },
+    {
+      "from": ".claude/hooks/guardian-kane-stop-entry.js",
+      "to": "external:fs",
+      "type": "external",
+      "confidence": "inferred"
+    },
+    {
+      "from": ".claude/hooks/guardian-kane-stop-entry.js",
+      "to": "external:child_process",
+      "type": "external",
+      "confidence": "inferred"
+    },
+    {
+      "from": "dashboard/public/chat.js",
+      "to": "external:http",
+      "type": "external",
+      "confidence": "inferred"
+    },
+    {
+      "from": "dashboard/public/graph.js",
+      "to": "external:http",
+      "type": "external",
+      "confidence": "inferred"
+    },
+    {
+      "from": "dashboard/server.js",
+      "to": "external:fs",
+      "type": "external",
+      "confidence": "inferred"
+    },
+    {
+      "from": "dashboard/server.js",
+      "to": "external:child_process",
+      "type": "external",
+      "confidence": "inferred"
+    },
+    {
+      "from": "lib/bug-memory.js",
+      "to": "external:fs",
+      "type": "external",
+      "confidence": "inferred"
+    },
+    {
+      "from": "lib/config.js",
+      "to": "external:fs",
+      "type": "external",
+      "confidence": "inferred"
+    },
+    {
+      "from": "lib/evidence.js",
+      "to": "external:fs",
+      "type": "external",
+      "confidence": "inferred"
+    },
+    {
+      "from": "lib/evidence.js",
+      "to": "external:child_process",
+      "type": "external",
+      "confidence": "inferred"
+    },
+    {
+      "from": "lib/graph-build.js",
+      "to": "external:fs",
+      "type": "external",
+      "confidence": "inferred"
+    },
+    {
+      "from": "lib/graph-build.js",
+      "to": "external:child_process",
+      "type": "external",
+      "confidence": "inferred"
+    },
+    {
+      "from": "lib/graph-build.js",
+      "to": "external:browser-nav",
+      "type": "external",
+      "confidence": "inferred"
+    },
+    {
+      "from": "lib/kane-context.js",
+      "to": "external:fs",
+      "type": "external",
+      "confidence": "inferred"
+    },
+    {
+      "from": "lib/kane-context.js",
+      "to": "external:child_process",
+      "type": "external",
+      "confidence": "inferred"
+    },
+    {
+      "from": "lib/kane-generate.js",
+      "to": "external:child_process",
+      "type": "external",
+      "confidence": "inferred"
+    },
+    {
+      "from": "lib/kane-review.js",
+      "to": "external:child_process",
+      "type": "external",
+      "confidence": "inferred"
+    },
+    {
+      "from": "lib/kane.js",
+      "to": "external:fs",
+      "type": "external",
+      "confidence": "inferred"
+    },
+    {
+      "from": "lib/kane.js",
+      "to": "external:child_process",
+      "type": "external",
+      "confidence": "inferred"
+    },
+    {
+      "from": "lib/knowledge-memory.js",
+      "to": "external:fs",
+      "type": "external",
+      "confidence": "inferred"
+    },
+    {
+      "from": "lib/logger.js",
+      "to": "external:fs",
+      "type": "external",
+      "confidence": "inferred"
+    },
+    {
+      "from": "lib/quality-scan.js",
+      "to": "external:fs",
+      "type": "external",
+      "confidence": "inferred"
+    },
+    {
+      "from": "lib/reconcile.js",
+      "to": "external:fs",
+      "type": "external",
+      "confidence": "inferred"
+    },
+    {
+      "from": "lib/reconcile.js",
+      "to": "external:child_process",
+      "type": "external",
+      "confidence": "inferred"
+    },
+    {
+      "from": "lib/review-card.js",
+      "to": "external:fs",
+      "type": "external",
+      "confidence": "inferred"
+    },
+    {
+      "from": "lib/review-card.js",
+      "to": "external:child_process",
+      "type": "external",
+      "confidence": "inferred"
+    },
+    {
+      "from": "lib/trace.js",
+      "to": "external:fs",
+      "type": "external",
+      "confidence": "inferred"
+    },
+    {
+      "from": "lib/tracker.js",
+      "to": "external:fs",
+      "type": "external",
+      "confidence": "inferred"
+    },
+    {
+      "from": "lib/verification-checks.js",
+      "to": "external:fs",
+      "type": "external",
+      "confidence": "inferred"
+    },
+    {
+      "from": "public/app.js",
+      "to": "external:http",
+      "type": "external",
+      "confidence": "inferred"
+    },
+    {
+      "from": "public/cart.js",
+      "to": "external:http",
+      "type": "external",
+      "confidence": "inferred"
+    }
+  ],
+  "drift": {
+    "orphanClaims": [
+      {
+        "id": "uc-3",
+        "title": "Create an account or sign in"
+      }
+    ],
+    "orphanFeatures": [
+      {
+        "id": "T2",
+        "label": "View & edit cart"
+      },
+      {
+        "id": "T3",
+        "label": "Sign up / sign in"
+      },
+      {
+        "id": "T4",
+        "label": "Checkout (auth-gated, cart-gated)"
+      },
+      {
+        "id": "T5",
+        "label": "Payment & order confirmation"
+      }
+    ],
+    "staleFeatureFiles": [
+      {
+        "featureId": "T0",
+        "file": "public/index.html"
+      },
+      {
+        "featureId": "T0",
+        "file": "public/styles.css"
+      },
+      {
+        "featureId": "T0",
+        "file": "package.json"
+      },
+      {
+        "featureId": "T1",
+        "file": "public/index.html"
+      },
+      {
+        "featureId": "T1",
+        "file": "public/cart.html"
+      },
+      {
+        "featureId": "T1",
+        "file": "public/styles.css"
+      },
+      {
+        "featureId": "T1",
+        "file": "package.json"
+      }
+    ],
+    "uncoveredCode": [
+      ".claude/hooks/guardian-kane-open-pr.js",
+      ".claude/hooks/guardian-kane-post-tool-use-entry.js",
+      ".claude/hooks/guardian-kane-post-tool-use.js",
+      ".claude/hooks/guardian-kane-pre-commit.js",
+      ".claude/hooks/guardian-kane-stop-entry.js",
+      ".claude/hooks/guardian-kane-stop.js",
+      "dashboard/lib/agent-bridge.js",
+      "dashboard/public/chat.js",
+      "dashboard/public/graph.js",
+      "dashboard/public/vendor/cose-base.js",
+      "dashboard/public/vendor/cytoscape-fcose.js",
+      "dashboard/public/vendor/cytoscape.umd.js",
+      "dashboard/public/vendor/layout-base.js",
+      "lib/bug-memory.js",
+      "lib/config.js",
+      "lib/evidence.js",
+      "lib/graph-build.js",
+      "lib/kane-context.js",
+      "lib/kane-generate.js",
+      "lib/kane-review.js",
+      "lib/kane.js",
+      "lib/knowledge-memory.js",
+      "lib/logger.js",
+      "lib/quality-scan.js",
+      "lib/reconcile.js",
+      "lib/review-card.js",
+      "lib/stuck-tasks.js",
+      "lib/trace.js",
+      "lib/tracker.js",
+      "lib/verification-checks.js"
+    ],
+    "lowTrustClaims": [],
+    "gaps": [],
+    "coverage": null
+  }
+}

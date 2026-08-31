@@ -1,0 +1,35 @@
+{
+  "start_url": {
+    "value": "http://localhost:3500"
+  },
+  "portfolio_overview_url": {
+    "value": "http://localhost:3500"
+  },
+  "dashboard_url": {
+    "value": "http://localhost:3500"
+  },
+  "store_base_url": {
+    "value": "http://localhost:3500"
+  },
+  "returning_shopper_email": {
+    "value": "existing.shopper@example.com"
+  },
+  "returning_shopper_password": {
+    "value": "ExistingPass1!"
+  },
+  "product_a": {
+    "value": "Trail Runner Sneakers"
+  },
+  "product_b": {
+    "value": "Insulated Steel Bottle"
+  },
+  "valid_card_details": {
+    "value": "card number 4242 4242 4242 4242, expiry 12/29, CVV 123"
+  },
+  "invalid_card_details": {
+    "value": "card number 1111 2222 3333 4445, expiry 01/20, CVV 000"
+  },
+  "missing_card_field": {
+    "value": "CVV"
+  }
+}

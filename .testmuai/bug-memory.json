@@ -1,0 +1,15 @@
+{
+  "entries": [
+    {
+      "taskId": "T3",
+      "prdRef": null,
+      "title": null,
+      "bugTitle": "Signed-in header assertion expects wrong email value",
+      "rootCause": "The test expected a different or unresolved email value than what the signed-in header displayed, so the check failed even though the shopper appears to be recognized.",
+      "family": "automation_bug",
+      "confidence": 0.96,
+      "source": "scripted_test",
+      "timestamp": "2026-08-30T03:26:01.938Z"
+    }
+  ]
+}

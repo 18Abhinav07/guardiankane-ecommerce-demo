@@ -1,0 +1,12 @@
+{
+  "flag": {
+    "taskId": "T0",
+    "file": "/Users/18abhinav07/Documents/guardiankane-ecommerce-demo/server.js",
+    "lockedBy": {
+      "id": "T1",
+      "title": "Add a product to the cart",
+      "state": "CLAIMED_DONE"
+    }
+  },
+  "checkedAt": "2026-08-29T14:59:04.743Z"
+}
