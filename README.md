@@ -16,7 +16,7 @@ whole loop is runnable from a single clone.
 ## Run it in under 30 seconds
 
 ```bash
-git clone <this-repo-url>
+git clone https://github.com/18Abhinav07/guardiankane-ecommerce-demo.git
 cd guardiankane-ecommerce-demo
 npm install
 npm run dev
