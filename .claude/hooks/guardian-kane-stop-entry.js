@@ -6,6 +6,7 @@ import { getAppUrl } from '../../lib/config.js';
 import { logActivity } from '../../lib/logger.js';
 import { loadMemory, saveMemory, recordBug, findMatches } from '../../lib/bug-memory.js';
 import { loadMemory as loadKnowledgeMemory, saveMemory as saveKnowledgeMemory, recordRun } from '../../lib/knowledge-memory.js';
+import { consumeDashboardPending, postDashboardReply } from '../../lib/dashboard-reply.js';
 import { decide } from './guardian-kane-stop.js';
 import { execSync } from 'node:child_process';
 
@@ -34,12 +35,24 @@ function probeReady() {
   }
 }
 
+// Best-effort: closes the dashboard-chat loop (see lib/dashboard-reply.js)
+// by posting a summary back whenever a dashboard message is still awaiting
+// a reply, reusing whatever human-readable text this Stop run already
+// produced — never a separate summarization pass, never something the
+// agent has to remember to do itself.
+async function replyToDashboardIfPending(summary) {
+  if (!consumeDashboardPending()) return;
+  const text = `${summary}\n\n— See the Claude Code session for full details.`;
+  await postDashboardReply(text);
+}
+
 let stdin = '';
 process.stdin.on('data', d => stdin += d);
-process.stdin.on('end', () => {
+process.stdin.on('end', async () => {
   // No tracker yet means GuardianKane hasn't been started on this project
   // (via /guardian-kane start) — let Claude Code stop normally.
   if (!existsSync(TRACKER_PATH)) {
+    await replyToDashboardIfPending('No GuardianKane task tracker found on this project yet — nothing to verify.');
     process.stdout.write('{}');
     process.exit(0);
   }
@@ -48,6 +61,9 @@ process.stdin.on('end', () => {
   const knowledgeMemory = { memory: loadKnowledgeMemory(), recordRun, saveMemory: (m) => saveKnowledgeMemory(m) };
   const result = decide({ tasks }, { probeReady, runKane: runKaneTest, runSweep: runKaneSweep, checkCoverage, checkTampering, checkSecrets, log: logActivity, bugMemory, knowledgeMemory });
   writeTracker(TRACKER_PATH, { tasks, phases });
+
+  const summary = result.permissionDecisionReason || result.systemMessage || 'No task state changed this turn.';
+  await replyToDashboardIfPending(summary);
 
   if (result.decision === 'deny') {
     // Stop hooks use the top-level decision/reason shape (not

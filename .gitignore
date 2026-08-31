@@ -8,5 +8,7 @@ node_modules/
 .testmuai/evidence/
 .testmuai/tests-old-org-backup/
 .testmuai/tests/
+.testmuai/chat-pending.json
+.testmuai/dashboard-info.json
 .context/
 .context.old-org-3281823-backup/

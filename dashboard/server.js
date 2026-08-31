@@ -90,6 +90,8 @@ export function parseArgs(argv) {
   args.memoryPath = path.join(args.target, '.testmuai', 'knowledge-memory.json');
   args.qualityPath = path.join(args.target, '.testmuai', 'quality.json');
   args.chatLogPath = path.join(args.target, '.testmuai', 'chat-log.json');
+  args.chatPendingPath = path.join(args.target, '.testmuai', 'chat-pending.json');
+  args.dashboardInfoPath = path.join(args.target, '.testmuai', 'dashboard-info.json');
   args.taskTrackerPath = path.join(args.target, '.testmuai', 'task-tracker.md');
   args.reviewAcksPath = path.join(args.target, '.testmuai', 'review-acks.json');
   args.reconcileStatusPath = path.join(args.target, '.testmuai', 'reconcile-status.json');
@@ -522,6 +524,16 @@ export function createServer(args) {
         jsonResponse(res, 502, { error: `push to agent failed: ${err.message}`, log });
         return;
       }
+      // Marks that a reply is owed. The Stop hook checks this on the
+      // agent's very next turn-end and posts a summary to /api/chat/reply
+      // regardless of whether the agent itself remembers to — see
+      // lib/dashboard-reply.js for why this can't be left to agent memory.
+      try {
+        fs.mkdirSync(path.dirname(args.chatPendingPath), { recursive: true });
+        fs.writeFileSync(args.chatPendingPath, JSON.stringify({ pending: true, sentAt: new Date().toISOString() }));
+      } catch {
+        // best-effort — a missed marker just means no auto-reply this round
+      }
       jsonResponse(res, 200, { ok: true, log });
       return;
     }
@@ -753,5 +765,14 @@ if (import.meta.url === `file://${process.argv[1]}`) {
     console.log(`GuardianKane dashboard: http://localhost:${args.port}`);
     console.log(`  reading graph from  ${args.graphPath}`);
     console.log(`  reading memory from ${args.memoryPath}`);
+    // Lets the Stop hook (a separate process, running from the target
+    // project's own cwd) find this dashboard's port to post chat replies
+    // back to, without hardcoding or guessing it — see lib/dashboard-reply.js.
+    try {
+      fs.mkdirSync(path.dirname(args.dashboardInfoPath), { recursive: true });
+      fs.writeFileSync(args.dashboardInfoPath, JSON.stringify({ port: args.port, pid: process.pid, startedAt: new Date().toISOString() }));
+    } catch (err) {
+      console.error(`  warning: could not write ${args.dashboardInfoPath}: ${err.message}`);
+    }
   });
 }
