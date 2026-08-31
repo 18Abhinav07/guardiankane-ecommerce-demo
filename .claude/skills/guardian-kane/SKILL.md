@@ -54,6 +54,23 @@ description: Use when the human types /guardian-kane start, sync, or open-pr. Tu
 
 The graph itself rebuilds automatically — every Edit/Write fires a background rebuild via the PostToolUse hook (`triggerGraphRefresh` in `.claude/hooks/guardian-kane-post-tool-use-entry.js`), so there is no manual "regenerate the graph" step to run or remember. If a rebuild fails, `.testmuai/graph-status.json` records the real error and the dashboard shows it as a banner — check that file (or the banner) before assuming the graph is current. `.testmuai/guardian-kane.config.json`'s `srcDir`/`exclude` fields control what the graph scans; `install.sh` auto-detects `srcDir` (checks for `src/`, `app/`, `lib/`, `source/`, falling back to the project root), but correct it by hand if the detection was wrong for this project's layout.
 
+## `chat` (dashboard ↔ agent)
+
+The dashboard's chat panel is a real two-way bridge to this session, not a chatbot. `/api/chat/send` pushes whatever the human types straight into your input stream via the messaging socket — indistinguishable from them typing it in the terminal. The Stop hook automatically posts a reply back to `/api/chat/reply` on your very next turn-end, built from that run's own `permissionDecisionReason`/`systemMessage` (see `lib/dashboard-reply.js` and the Stop-hook section below) — you do not need to call `/api/chat/reply` yourself for a reply to happen; it fires regardless of what you did that turn. If a message deserves a fuller answer than that one-line gate outcome (an open-ended question, not a task instruction), you may also post your own reply proactively: `curl -s -X POST http://localhost:<port>/api/chat/reply -H 'Content-Type: application/json' -d '{"text":"<answer>"}'` — the port is in `.testmuai/dashboard-info.json`. The Stop hook's own auto-reply still fires afterward as a short second message; that's expected, not a bug.
+
+The first time you start the dashboard on a project whose `.testmuai/chat-log.json` is empty or absent, post one short greeting there (same `curl`) introducing yourself and inviting the human to ask what GuardianKane does — this is the human's first signal that the chat is live, not decorative.
+
+## Explaining GuardianKane (reference — answer from this, not from guessing)
+
+When a human asks what GuardianKane is or how it works — in the dashboard chat or anywhere else:
+
+- It's a Stop-hook gate wrapped around `kane-cli`. An agent can mark a task `CLAIMED_DONE`, but `.claude/hooks/guardian-kane-stop.js` intercepts every attempt to end the turn and only allows `KANE_VERIFIED` after Kane's real browser-based test genuinely passes against the actual running app — twice: a scripted test, then a free-form defect sweep (exact mechanics in the section below).
+- Failures are capped at `MAX_ATTEMPTS = 3` per task; the failure after that flips the task to `BLOCKED_NEEDS_HUMAN` instead of looping forever or letting the agent self-report success.
+- Every decision is logged to `.testmuai/kane-activity.log` by the hook itself, never by the agent self-reporting — that's the independent audit trail; read it directly to verify a claim rather than trusting the tracker's summary.
+- Two separate memory stores exist and answer different questions: `.testmuai/bug-memory.json` is cross-task bug-pattern matching, used only internally by the hook to flag "resembles a bug from T-N"; `.testmuai/knowledge-memory.json` is per-file-set pass/fail history, and is the one the dashboard's Memory graph tab actually renders.
+- The dashboard (`npm run dashboard`) has four real tabs — Code graph, Memory graph, PRD graph, Kane activity — plus a Gaps/drift panel fed by `kane-cli cover gaps --json` (design-completeness/proven status per use-case; this is about missing or unproven coverage, not a code-correctness scanner) and a Trace panel (per-tool-call log while a task is active). The graph rebuilds automatically after every Edit/Write via `triggerGraphRefresh` — there is no manual regenerate step.
+- The chat bridge above is how a human on the dashboard talks directly to this live agent session — not a separate, dumber assistant.
+
 ## What the Stop hook does on every stop (for reference — you never call this yourself)
 
 When a task is `CLAIMED_DONE`, the hook (`.claude/hooks/guardian-kane-stop.js`) does two verification passes before marking it `KANE_VERIFIED`, not one:
