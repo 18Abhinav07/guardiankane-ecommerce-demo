@@ -309,15 +309,6 @@ tasks:
     title: Payment & order confirmation
     prd_ref: PRD.md#UC-5
     phase: P4
-    verification_mode: manual
-    manual_confirmed: true
-    manual_note: >-
-      Kane's 3 automated attempts genuinely failed (see kane-activity.log,
-      kane-evidence/) — left as-is deliberately, it's the demo evidence for
-      the hackathon submission. Human (repo owner) re-tested the live
-      checkout flow by hand after that log was written and confirmed it
-      now completes correctly end to end; this override only unblocks
-      committing the repo, it does not retroactively edit Kane's verdict.
     test_file:
       - .testmuai/tests/place-a-paid-order-and-reach-order-confirmation_test.md
       - .testmuai/tests/reject-invalid-card-details-at-checkout-without-confirmation_test.md

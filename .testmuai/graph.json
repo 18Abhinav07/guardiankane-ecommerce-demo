@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-29T14:59:06.407Z",
+  "generatedAt": "2026-08-31T03:50:23.563Z",
   "target": "/Users/18abhinav07/Documents/guardiankane-ecommerce-demo",
   "nodes": [
     {
@@ -84,6 +84,12 @@
       "id": "dashboard/server.js",
       "type": "code",
       "dir": "dashboard",
+      "phases": []
+    },
+    {
+      "id": "lib/activity-feed.js",
+      "type": "code",
+      "dir": "lib",
       "phases": []
     },
     {
@@ -189,6 +195,14 @@
       "phases": []
     },
     {
+      "id": "public/account.js",
+      "type": "code",
+      "dir": "public",
+      "phases": [
+        "P2"
+      ]
+    },
+    {
       "id": "public/app.js",
       "type": "code",
       "dir": "public",
@@ -202,7 +216,41 @@
       "type": "code",
       "dir": "public",
       "phases": [
-        "P1"
+        "P1",
+        "P3"
+      ]
+    },
+    {
+      "id": "public/checkout.js",
+      "type": "code",
+      "dir": "public",
+      "phases": [
+        "P3",
+        "P4"
+      ]
+    },
+    {
+      "id": "public/order-confirmation.js",
+      "type": "code",
+      "dir": "public",
+      "phases": [
+        "P4"
+      ]
+    },
+    {
+      "id": "public/signin.js",
+      "type": "code",
+      "dir": "public",
+      "phases": [
+        "P2"
+      ]
+    },
+    {
+      "id": "public/signup.js",
+      "type": "code",
+      "dir": "public",
+      "phases": [
+        "P2"
       ]
     },
     {
@@ -211,14 +259,17 @@
       "dir": "",
       "phases": [
         "P0",
-        "P1"
+        "P1",
+        "P2",
+        "P3",
+        "P4"
       ]
     },
     {
       "id": "T0",
       "type": "feature",
       "label": "Scaffold — clone + boot",
-      "state": "IN_PROGRESS",
+      "state": "KANE_VERIFIED",
       "phases": [
         "P0"
       ]
@@ -227,7 +278,7 @@
       "id": "T1",
       "type": "feature",
       "label": "Add a product to the cart",
-      "state": "CLAIMED_DONE",
+      "state": "KANE_VERIFIED",
       "phases": [
         "P1"
       ]
@@ -236,7 +287,7 @@
       "id": "T2",
       "type": "feature",
       "label": "View & edit cart",
-      "state": "PLANNED",
+      "state": "KANE_VERIFIED",
       "phases": [
         "P1"
       ]
@@ -245,7 +296,7 @@
       "id": "T3",
       "type": "feature",
       "label": "Sign up / sign in",
-      "state": "PLANNED",
+      "state": "KANE_VERIFIED",
       "phases": [
         "P2"
       ]
@@ -254,7 +305,7 @@
       "id": "T4",
       "type": "feature",
       "label": "Checkout (auth-gated, cart-gated)",
-      "state": "PLANNED",
+      "state": "KANE_VERIFIED",
       "phases": [
         "P3"
       ]
@@ -263,7 +314,7 @@
       "id": "T5",
       "type": "feature",
       "label": "Payment & order confirmation",
-      "state": "PLANNED",
+      "state": "BLOCKED_NEEDS_HUMAN",
       "phases": [
         "P4"
       ]
@@ -271,7 +322,7 @@
     {
       "id": "uc-4",
       "type": "claim",
-      "title": "Add a product to the cart",
+      "title": "Add a product to cart",
       "trust": "trusted",
       "fresh": "fresh",
       "phases": []
@@ -279,15 +330,7 @@
     {
       "id": "uc-3",
       "type": "claim",
-      "title": "Create an account or sign in",
-      "trust": "trusted",
-      "fresh": "fresh",
-      "phases": []
-    },
-    {
-      "id": "uc-1",
-      "type": "claim",
-      "title": "Place a paid order and receive confirmation",
+      "title": "Proceed to checkout",
       "trust": "trusted",
       "fresh": "fresh",
       "phases": []
@@ -295,7 +338,15 @@
     {
       "id": "uc-2",
       "type": "claim",
-      "title": "Proceed to checkout",
+      "title": "Sign up or sign in",
+      "trust": "trusted",
+      "fresh": "fresh",
+      "phases": []
+    },
+    {
+      "id": "uc-1",
+      "type": "claim",
+      "title": "Submit payment and receive order confirmation",
       "trust": "trusted",
       "fresh": "fresh",
       "phases": []
@@ -303,7 +354,7 @@
     {
       "id": "uc-5",
       "type": "claim",
-      "title": "Review and update the cart",
+      "title": "View and edit cart contents",
       "trust": "trusted",
       "fresh": "fresh",
       "phases": []
@@ -322,6 +373,11 @@
       "id": "external:http",
       "type": "external",
       "label": "HTTP / fetch"
+    },
+    {
+      "id": "external:browser-storage",
+      "type": "external",
+      "label": "browser storage (localStorage/sessionStorage)"
     },
     {
       "id": "external:browser-nav",
@@ -435,6 +491,12 @@
     {
       "from": "dashboard/server.js",
       "to": "dashboard/lib/agent-bridge.js",
+      "type": "imports",
+      "confidence": "confirmed"
+    },
+    {
+      "from": "dashboard/server.js",
+      "to": "lib/activity-feed.js",
       "type": "imports",
       "confidence": "confirmed"
     },
@@ -643,6 +705,144 @@
       "confidence": "confirmed"
     },
     {
+      "from": "T2",
+      "to": "server.js",
+      "type": "touches",
+      "confidence": "confirmed"
+    },
+    {
+      "from": "T2",
+      "to": "public/cart.js",
+      "type": "touches",
+      "confidence": "confirmed"
+    },
+    {
+      "from": "T2",
+      "to": "public/styles.css",
+      "type": "touches",
+      "confidence": "confirmed"
+    },
+    {
+      "from": "T3",
+      "to": "server.js",
+      "type": "touches",
+      "confidence": "confirmed"
+    },
+    {
+      "from": "T3",
+      "to": "public/account.js",
+      "type": "touches",
+      "confidence": "confirmed"
+    },
+    {
+      "from": "T3",
+      "to": "public/signup.html",
+      "type": "touches",
+      "confidence": "confirmed"
+    },
+    {
+      "from": "T3",
+      "to": "public/signup.js",
+      "type": "touches",
+      "confidence": "confirmed"
+    },
+    {
+      "from": "T3",
+      "to": "public/signin.html",
+      "type": "touches",
+      "confidence": "confirmed"
+    },
+    {
+      "from": "T3",
+      "to": "public/signin.js",
+      "type": "touches",
+      "confidence": "confirmed"
+    },
+    {
+      "from": "T3",
+      "to": "public/index.html",
+      "type": "touches",
+      "confidence": "confirmed"
+    },
+    {
+      "from": "T3",
+      "to": "public/cart.html",
+      "type": "touches",
+      "confidence": "confirmed"
+    },
+    {
+      "from": "T3",
+      "to": "public/styles.css",
+      "type": "touches",
+      "confidence": "confirmed"
+    },
+    {
+      "from": "T4",
+      "to": "server.js",
+      "type": "touches",
+      "confidence": "confirmed"
+    },
+    {
+      "from": "T4",
+      "to": "views/checkout.html",
+      "type": "touches",
+      "confidence": "confirmed"
+    },
+    {
+      "from": "T4",
+      "to": "public/checkout.js",
+      "type": "touches",
+      "confidence": "confirmed"
+    },
+    {
+      "from": "T4",
+      "to": "public/cart.js",
+      "type": "touches",
+      "confidence": "confirmed"
+    },
+    {
+      "from": "T4",
+      "to": "public/styles.css",
+      "type": "touches",
+      "confidence": "confirmed"
+    },
+    {
+      "from": "T5",
+      "to": "server.js",
+      "type": "touches",
+      "confidence": "confirmed"
+    },
+    {
+      "from": "T5",
+      "to": "views/checkout.html",
+      "type": "touches",
+      "confidence": "confirmed"
+    },
+    {
+      "from": "T5",
+      "to": "public/checkout.js",
+      "type": "touches",
+      "confidence": "confirmed"
+    },
+    {
+      "from": "T5",
+      "to": "public/order-confirmation.html",
+      "type": "touches",
+      "confidence": "confirmed"
+    },
+    {
+      "from": "T5",
+      "to": "public/order-confirmation.js",
+      "type": "touches",
+      "confidence": "confirmed"
+    },
+    {
+      "from": "T5",
+      "to": "public/styles.css",
+      "type": "touches",
+      "confidence": "confirmed"
+    },
+    {
       "from": "uc-4",
       "to": "dashboard/server.js",
       "type": "about",
@@ -661,20 +861,50 @@
       "confidence": "inferred"
     },
     {
+      "from": "uc-3",
+      "to": "public/cart.js",
+      "type": "about",
+      "confidence": "inferred"
+    },
+    {
+      "from": "uc-3",
+      "to": "public/checkout.js",
+      "type": "about",
+      "confidence": "inferred"
+    },
+    {
+      "from": "uc-2",
+      "to": "public/account.js",
+      "type": "about",
+      "confidence": "inferred"
+    },
+    {
+      "from": "uc-2",
+      "to": "public/checkout.js",
+      "type": "about",
+      "confidence": "inferred"
+    },
+    {
       "from": "uc-1",
       "to": "public/cart.js",
       "type": "about",
       "confidence": "inferred"
     },
     {
-      "from": "uc-2",
-      "to": "public/cart.js",
+      "from": "uc-1",
+      "to": "public/checkout.js",
       "type": "about",
       "confidence": "inferred"
     },
     {
       "from": "uc-5",
       "to": "public/cart.js",
+      "type": "about",
+      "confidence": "inferred"
+    },
+    {
+      "from": "uc-5",
+      "to": "public/checkout.js",
       "type": "about",
       "confidence": "inferred"
     },
@@ -735,6 +965,12 @@
     {
       "from": "dashboard/public/graph.js",
       "to": "external:http",
+      "type": "external",
+      "confidence": "inferred"
+    },
+    {
+      "from": "dashboard/public/graph.js",
+      "to": "external:browser-storage",
       "type": "external",
       "confidence": "inferred"
     },
@@ -889,6 +1125,12 @@
       "confidence": "inferred"
     },
     {
+      "from": "public/account.js",
+      "to": "external:http",
+      "type": "external",
+      "confidence": "inferred"
+    },
+    {
       "from": "public/app.js",
       "to": "external:http",
       "type": "external",
@@ -899,33 +1141,75 @@
       "to": "external:http",
       "type": "external",
       "confidence": "inferred"
+    },
+    {
+      "from": "public/checkout.js",
+      "to": "external:http",
+      "type": "external",
+      "confidence": "inferred"
+    },
+    {
+      "from": "public/checkout.js",
+      "to": "external:browser-nav",
+      "type": "external",
+      "confidence": "inferred"
+    },
+    {
+      "from": "public/order-confirmation.js",
+      "to": "external:http",
+      "type": "external",
+      "confidence": "inferred"
+    },
+    {
+      "from": "public/order-confirmation.js",
+      "to": "external:browser-nav",
+      "type": "external",
+      "confidence": "inferred"
+    },
+    {
+      "from": "public/signin.js",
+      "to": "external:http",
+      "type": "external",
+      "confidence": "inferred"
+    },
+    {
+      "from": "public/signin.js",
+      "to": "external:browser-nav",
+      "type": "external",
+      "confidence": "inferred"
+    },
+    {
+      "from": "public/signup.js",
+      "to": "external:http",
+      "type": "external",
+      "confidence": "inferred"
+    },
+    {
+      "from": "public/signup.js",
+      "to": "external:browser-nav",
+      "type": "external",
+      "confidence": "inferred"
     }
   ],
   "drift": {
     "orphanClaims": [
       {
-        "id": "uc-3",
-        "title": "Create an account or sign in"
+        "id": "uc-1",
+        "title": "Submit payment and receive order confirmation",
+        "pct": 0
+      },
+      {
+        "id": "uc-4",
+        "title": "Add a product to cart",
+        "pct": 0
+      },
+      {
+        "id": "uc-5",
+        "title": "View and edit cart contents",
+        "pct": 0
       }
     ],
-    "orphanFeatures": [
-      {
-        "id": "T2",
-        "label": "View & edit cart"
-      },
-      {
-        "id": "T3",
-        "label": "Sign up / sign in"
-      },
-      {
-        "id": "T4",
-        "label": "Checkout (auth-gated, cart-gated)"
-      },
-      {
-        "id": "T5",
-        "label": "Payment & order confirmation"
-      }
-    ],
+    "orphanFeatures": [],
     "staleFeatureFiles": [
       {
         "featureId": "T0",
@@ -954,6 +1238,50 @@
       {
         "featureId": "T1",
         "file": "package.json"
+      },
+      {
+        "featureId": "T2",
+        "file": "public/styles.css"
+      },
+      {
+        "featureId": "T3",
+        "file": "public/signup.html"
+      },
+      {
+        "featureId": "T3",
+        "file": "public/signin.html"
+      },
+      {
+        "featureId": "T3",
+        "file": "public/index.html"
+      },
+      {
+        "featureId": "T3",
+        "file": "public/cart.html"
+      },
+      {
+        "featureId": "T3",
+        "file": "public/styles.css"
+      },
+      {
+        "featureId": "T4",
+        "file": "views/checkout.html"
+      },
+      {
+        "featureId": "T4",
+        "file": "public/styles.css"
+      },
+      {
+        "featureId": "T5",
+        "file": "views/checkout.html"
+      },
+      {
+        "featureId": "T5",
+        "file": "public/order-confirmation.html"
+      },
+      {
+        "featureId": "T5",
+        "file": "public/styles.css"
       }
     ],
     "uncoveredCode": [
@@ -970,6 +1298,7 @@
       "dashboard/public/vendor/cytoscape-fcose.js",
       "dashboard/public/vendor/cytoscape.umd.js",
       "dashboard/public/vendor/layout-base.js",
+      "lib/activity-feed.js",
       "lib/bug-memory.js",
       "lib/config.js",
       "lib/evidence.js",
@@ -988,8 +1317,178 @@
       "lib/tracker.js",
       "lib/verification-checks.js"
     ],
-    "lowTrustClaims": [],
-    "gaps": [],
-    "coverage": null
+    "lowTrustClaims": [
+      {
+        "id": "uc-1",
+        "title": "Submit payment and receive order confirmation",
+        "pct": 0
+      },
+      {
+        "id": "uc-3",
+        "title": "Proceed to checkout",
+        "pct": 29
+      },
+      {
+        "id": "uc-4",
+        "title": "Add a product to cart",
+        "pct": 0
+      },
+      {
+        "id": "uc-5",
+        "title": "View and edit cart contents",
+        "pct": 0
+      }
+    ],
+    "gaps": [
+      {
+        "ref": "uc-1",
+        "kind": "zero-scenario",
+        "why": "use-case has no scenarios",
+        "risk": "high",
+        "stage": "design",
+        "tag": "create",
+        "ready_command": "kane-cli design tests --use-case uc-1",
+        "id": "uc-1",
+        "title": "Submit payment and receive order confirmation",
+        "usecaseTitle": "Submit payment and receive order confirmation"
+      },
+      {
+        "ref": "ac-11",
+        "id": "ac-11",
+        "title": "When a signed-in shopper reaches checkout from a…",
+        "risk": "med",
+        "stage": "cover",
+        "kind": "execution-failed",
+        "tag": "evolve",
+        "why": "covering test failed against this AC",
+        "ready_command": "kane-cli testrun run",
+        "via_tests": [],
+        "usecaseTitle": "Proceed to checkout"
+      },
+      {
+        "ref": "ac-12",
+        "id": "ac-12",
+        "title": "A signed-in shopper with a non-empty cart can…",
+        "risk": "med",
+        "stage": "cover",
+        "kind": "execution-failed",
+        "tag": "evolve",
+        "why": "covering test failed against this AC",
+        "ready_command": "kane-cli testrun run",
+        "via_tests": [],
+        "usecaseTitle": "Proceed to checkout"
+      },
+      {
+        "ref": "ac-13",
+        "id": "ac-13",
+        "title": "When a signed-in shopper reaches checkout from a…",
+        "risk": "med",
+        "stage": "cover",
+        "kind": "execution-failed",
+        "tag": "evolve",
+        "why": "covering test failed against this AC",
+        "ready_command": "kane-cli testrun run",
+        "via_tests": [],
+        "usecaseTitle": "Proceed to checkout"
+      },
+      {
+        "ref": "ac-14",
+        "id": "ac-14",
+        "title": "A signed-in shopper with an empty cart who…",
+        "risk": "med",
+        "stage": "cover",
+        "kind": "execution-failed",
+        "tag": "evolve",
+        "why": "covering test failed against this AC",
+        "ready_command": "kane-cli testrun run",
+        "via_tests": [],
+        "usecaseTitle": "Proceed to checkout"
+      },
+      {
+        "ref": "ac-15",
+        "id": "ac-15",
+        "title": "A signed-in shopper with an empty cart who…",
+        "risk": "med",
+        "stage": "cover",
+        "kind": "execution-failed",
+        "tag": "evolve",
+        "why": "covering test failed against this AC",
+        "ready_command": "kane-cli testrun run",
+        "via_tests": [],
+        "usecaseTitle": "Proceed to checkout"
+      },
+      {
+        "ref": "uc-4",
+        "kind": "zero-scenario",
+        "why": "use-case has no scenarios",
+        "risk": "med",
+        "stage": "design",
+        "tag": "create",
+        "ready_command": "kane-cli design tests --use-case uc-4",
+        "id": "uc-4",
+        "title": "Add a product to cart",
+        "usecaseTitle": "Add a product to cart"
+      },
+      {
+        "ref": "uc-5",
+        "kind": "zero-scenario",
+        "why": "use-case has no scenarios",
+        "risk": "med",
+        "stage": "design",
+        "tag": "create",
+        "ready_command": "kane-cli design tests --use-case uc-5",
+        "id": "uc-5",
+        "title": "View and edit cart contents",
+        "usecaseTitle": "View and edit cart contents"
+      }
+    ],
+    "coverage": {
+      "design": {
+        "pct": 100,
+        "acs_designed": "15/15",
+        "usecases_complete": "2/5",
+        "ucs_needing_scenarios": 3,
+        "config": {
+          "criterion": "live_verifies_edge",
+          "risk_weights": {
+            "high": 3
+          },
+          "freshness": "not_discounted"
+        }
+      },
+      "proven": {
+        "aspect": "lenient",
+        "pct": 84,
+        "acs_proven": "10/15",
+        "failing": 5,
+        "blocked": 0,
+        "not_run": 0,
+        "latest_run": {
+          "execution_id": "1cf0bff1-e42a-4ea8-8e9b-a4f0ed9926fa",
+          "started_at": "2026-08-30T07:44:08.716Z"
+        },
+        "config": {
+          "window": 10,
+          "latest_only": false,
+          "stale_at_run_weight": 0.5,
+          "counted_verdicts": [
+            "passed",
+            "failed"
+          ],
+          "accepted_oracle_modes": [
+            "authored",
+            "inferred",
+            "runtime-derived"
+          ],
+          "verified_threshold": 0.5,
+          "min_passes": 1,
+          "risk_weights": {
+            "high": 3
+          },
+          "source": "graph_execution_facts",
+          "denominator": "current_live_acs"
+        }
+      }
+    }
   }
 }
